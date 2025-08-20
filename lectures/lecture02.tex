@@ -1,0 +1,236 @@
+\chapter{Aug.~20 --- Prime Numbers}
+
+\begin{quote}
+  \emph{Two fish are in a tank. One says to the other, "Ha, how do you drive this thing?"}
+\end{quote}
+
+\section{Prime Numbers}
+
+\begin{definition}
+  Let $p \in \Z$ with $p > 1$. Then $p$
+  is \emph{prime} if the only positive
+  divisors of $p$ and $1$ and $p$.
+  If $n \in \Z$, $n > 1$ and $n$ is not
+  prime, then $n$ is \emph{composite}.
+\end{definition}
+
+\begin{remark}
+  The number $1$ is neither prime
+  nor composite.
+\end{remark}
+
+\begin{example}
+  The following are prime numbers:
+  $2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, \dots$.
+\end{example}
+
+\begin{lemma}\label{lem:has-prime-divisor}
+  Every integer greater than $1$ has a
+  prime divisor.
+\end{lemma}
+
+\begin{proof}
+  Assume to the contrary that there exists
+  $n > 1$ that has no prime divisor.
+  By the well-ordering principle,\footnote{The \emph{well-ordering principle} says that every nonempty subset of the positive integers contains a least element.}
+  we may take $n$ to be the smallest
+  such positive integer. Since $n$
+  has no prime divisors, $n$ cannot be
+  prime. Thus $n$ has a divisor $a$
+  with $1 < a < n$. Since $1 < a < n$,
+  $a$ must have a prime divisor $p$ by the
+  minimality of $n$. But then $p \mid a$
+  and $a \mid n$, so $p \mid n$ by
+  transitivity,
+  a contradiction.
+\end{proof}
+
+\begin{theorem}[Euclid]
+  There are infinitely many prime numbers.
+\end{theorem}
+
+\begin{proof}
+  Assume to the contrary that there are
+  only finitely many primes
+  $p_1, p_2, \dots, p_n$.
+  Consider
+  \[
+    N = p_1 p_2 \cdots p_n + 1.
+  \]
+  By Lemma \ref{lem:has-prime-divisor},
+  $N$ has a prime divisor $p = p_j$
+  for some $1 \le j \le n$. Since
+  $p$ divides $N$ and $p$ divides
+  $p_1 p_2 \cdots p_n$,
+  $p$ also divides
+  $N - p_1 p_2 \cdots p_n = 1$,
+  which is a contradiction.
+\end{proof}
+
+\begin{exercise}
+  Modify the proof and construct
+  infinitely many problematic $N$.
+\end{exercise}
+
+\section{Sieve of Eratosthenes}
+
+\begin{prop}
+  If $n$ is composite, then $n$ has a
+  prime divisor that is less than or
+  equal to $\sqrt{n}$.
+\end{prop}
+
+\begin{proof}
+  Since $n$ is composite, $n = ab$ where
+  $1 < a, b < n$. Without loss of
+  generality, assume $a \le b$. We claim
+  $a \le \sqrt{n}$. To see this,
+  suppose to the contrary that
+  $a > \sqrt{n}$.
+  Then $n = ab \ge a^2 > n$, a
+  contradiction.
+  By Lemma
+  \ref{lem:has-prime-divisor},
+  $a$ has a prime divisor
+  $p \le a \le \sqrt{n}$. But then
+  $p \mid a$ and $a \mid n$, so $p \mid n$.
+\end{proof}
+
+\begin{remark}
+  The proposition implies that if
+  all the prime divisors of an integer
+  $n$ are greater than $\sqrt{n}$,
+  then $n$ is prime. So to check the
+  primality of $n$,
+  it suffices to check divisibility
+  by primes $\le \sqrt{n}$.
+\end{remark}
+
+\begin{example}
+  The \emph{sieve of Eratosthenes} proceeds
+  as follows. To find primes $\le 50$,
+  we can delete multiples of primes
+  $\le \sqrt{50} \approx 7.07$. To start,
+  we know that $2$ is prime. Then cross
+  out all multiples of $2$. The smallest
+  number remaining is $3$, which we now
+  know must be prime. Then cross out all
+  multiples of $3$. Continue this process
+  until we cross out all multiples of
+  $7$, and then all remaining numbers
+  are prime.
+\end{example}
+
+\section{Gaps in Primes}
+\begin{prop}
+  For any positive integer $n$, there are
+  at least $n$ consecutive composite
+  positive integers.
+\end{prop}
+
+\begin{proof}
+  Consider the following list of $n$
+  consecutive numbers:
+  \[
+    (n + 1)! + 2,\quad (n + 1)! + 3,\quad
+    (n + 1)! + 4,\quad
+    \dots,\quad (n + 1)! + (n + 1).
+  \]
+  Note that for any $2 \le m \le n + 1$,
+  we have $m \mid m$ and $m \mid (n + 1)!$,
+  so $m$ divides $(n + 1)! + m$.
+  Thus each number in the above list
+  is composite, so we have at least
+  $n$ consecutive composite integers.
+\end{proof}
+
+\begin{remark}
+  With some modifications to this proof
+  (namely a more ``efficient''
+  construction), one can find asymptotic
+  lower bounds for the length of long
+  prime gaps.
+\end{remark}
+
+\begin{conjecture}
+  There are infinitely many pairs
+  of primes that differ by exactly $2$.
+\end{conjecture}
+
+\begin{remark}
+  Zhang (2013) was able to show that
+  there are infinitely many pairs of
+  pairs of primes whose difference is
+  $\le 70,000,000$. This has been
+  lowered to $246$ by the Polymath project,
+  which included Tao and Maynard. Assuming
+  other strong conjectures
+  (Elliot-Halberstam), we can get
+  down to $6$.
+\end{remark}
+
+\begin{remark}
+  In addition to long and short prime gaps,
+  we can also consider the average length
+  of prime gaps. Gauss conjectured that
+  as $x \to \infty$, the number of primes
+  $\le x$, denoted $\pi(x)$, satisfies
+  \[
+    \pi(x) \sim \frac{x}{\log x},
+  \]
+  i.e. $\pi(x)$ is asymptotic
+  to $x / {\log x}$. Said
+  differently, this says that the
+  ``probability'' that an integer $\le x$
+  is prime is $\pi(x) / x \sim 1 / {\log x}$.
+  This conjecture was proved independently
+  in 1896 by de la Vall\'e-Poussin and
+  Hadamard, and is now known as the
+  \emph{prime number theorem}.
+\end{remark}
+
+\begin{definition}
+  Let $x \in \R$. Define
+  $\pi(x) = |{\{p : \text{$p$ prime}, p \le x\}}|$.
+\end{definition}
+
+\begin{theorem}[Prime number theorem]
+  As $x \to \infty$,
+  $\pi(x)$ is asymptotic to $x / {\log x}$,
+  i.e.
+  \[
+    \lim_{x \to \infty}
+    \frac{\pi(x)}{x / {\log x}} = 1.
+  \]
+\end{theorem}
+
+\section{Other Open Problems}
+
+\begin{conjecture}[Goldbach]
+  Every even integer $\ge 4$ is a sum
+  of two primes.
+\end{conjecture}
+
+\begin{theorem}[Ternary Goldbach]
+  Every odd integer $\ge 7$ is a sum of
+  three primes.
+\end{theorem}
+
+\begin{remark}
+  Goldbach's conjecture implies
+  ternary Goldbach (subtract $3$), but not
+  vice versa.
+\end{remark}
+
+\begin{definition}
+  Primes of the form $p = 2^n - 1$
+  are called \emph{Mersenne primes}, and
+  primes of the form $p = 2^{2^n} + 1$
+  are called \emph{Fermat primes}.
+\end{definition}
+
+\begin{conjecture}
+  There are infinitely many Mersenne
+  primes but only finitely many
+  Fermat primes.
+\end{conjecture}
