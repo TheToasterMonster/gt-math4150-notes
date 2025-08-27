@@ -1,0 +1,239 @@
+\chapter{Aug.~27 --- Fundamental Theorem of Arithmetic}
+
+\begin{quote}
+  \emph{What's the difference between a mediocre clown and a rabbit in the gym? One's a bit funny, the other's a fit bunny.}
+\end{quote}
+
+\section{The Fundamental Theorem of Arithmetic}
+
+\begin{lemma}[Euclid]\label{lem:prime-divides-product}
+  Let $a, b \in \Z$ and let $p$ be a prime.
+  If $p \mid ab$, then $p \mid a$
+  or $p \mid b$.
+\end{lemma}
+
+\begin{proof}
+  If $p \mid a$, then we are done, so
+  assume $p \nmid a$. Then
+  $(p, a) = 1$. Thus we can write
+  $1 = ma + np$ for some $m, n \in \Z$.
+  Since $p \mid ab$, we can write
+  $ab = pc$ for some $c \in \Z$.
+  Multiplying by $b$, we have
+  \[
+    b = bma + bnp
+    = m(cp) + nb p
+    = p(mc + nb).
+  \]
+  Thus we see that
+  $p \mid b$, as desired.
+\end{proof}
+
+\begin{remark}
+  This fails if $p$ is composite:
+  Take $p = 6$, $a = 2$, and $b = 3$.
+\end{remark}
+
+\begin{exercise}
+  Determine where the proof fails
+  if $p$ is composite.
+\end{exercise}
+
+\begin{corollary}
+  Let $a_1, \dots, a_n \in \Z$ and $p$
+  a prime. If $p \mid a_1 \cdots a_n$,
+  then $p \mid a_i$ for some $1 \le i \le n$.
+\end{corollary}
+
+\begin{proof}
+  Induct on $n$. The base case $n = 1$
+  is trivial. If $n = 2$, then this is
+  just Lemma \ref{lem:prime-divides-product}.
+  Now suppose $n \ge 2$, and we show the
+  result for $n + 1$. Specifically,
+  assume that if $p \mid a_1 \cdots a_n$,
+  then $p \mid a_i$ for some
+  $1 \le i \le n$. Suppose
+  $p \mid a_1 \cdots a_n a_{n+1}$.
+  Then $p \mid (a_1 \cdots a_n) a_{n+1}$.
+  So by Lemma \ref{lem:prime-divides-product},
+  we have $p \mid a_1 \cdots a_n$
+  or $p \mid a_{n + 1}$. If $p \mid a_{n + 1}$, then we are done.
+  Otherwise, $p \mid a_1 \cdots a_n$,
+  so $p \mid a_i$ for some $1 \le i \le n$
+  by the induction hypothesis.
+  In particular, $p \mid a_i$ for some
+  $1 \le i \le n + 1$, as desired.
+\end{proof}
+
+\begin{theorem}[Fundamental theorem of arithmetic]
+  Every integer $m > 1$ may be
+  expressed in the form
+  $m = p_1^{a_1} \cdots p_n^{a_n}$
+  where $p_1, \dots, p_n$ are distinct
+  primes and $a_1, \dots, a_n$ are
+  positive integers. This form is
+  called the \emph{prime factorization}
+  of the integer $m$. Moreover, this
+  factorization is essentially unique, i.e.
+  unique up to permutations
+  of the factors $p_i^{a_i}$.
+\end{theorem}
+
+\begin{proof}
+  We first prove existence.
+  Assume to the contrary that there exists
+  $m > 1$ that does not have a prime
+  factorization. Without loss of generality,
+  we can assume $m$ is the smallest such
+  integer by the well-ordering principle.
+  In particular, $m$ cannot be prime.
+  So $m = ab$ for some $1 < a, b < m$. Then
+  $a, b$ have prime factorizations. Thus
+  so too does $m$, a contradiction.
+
+  Now we prove uniqueness. Assume
+  that $m = p_1^{a_1} \cdots p_n^{a_n} = q_1^{b_1} \cdots q_r^{b_r}$.
+  Without loss of generality, we
+  can assume $p_1 < p_2 < \cdots < p_n$
+  and $q_1 < q_2 < \cdots < q_r$.
+  We need to show that
+  $n = r$, $p_i = q_i$ for each $i$, and
+  $a_i = b_i$ for each $i$. Let $p_i \mid m$.
+  Then $p_i \mid q_1^{b_1} \cdots q_r^{b_r}$,
+  so $p_i \mid q_j$ for some $1 \le j \le r$.
+  Thus $p_i = q_j$ since both are prime.
+  Similarly, given $q_i$, we have
+  $q_i = p_j$ for some $j$. Thus the
+  primes in the two factorizations (as
+  sets) are the same. Thus $n = r$, and
+  by the ordering assumption, we have
+  $p_i = q_i$ for each $1 \le i \le n$.
+  So
+  \[
+    m = p_1^{a_1} \cdots p_n^{a_n}
+    = p_1^{b_1} \cdots p_n^{b_n}.
+  \]
+  Suppose to the contrary that
+  $a_i \ne b_i$ for some $i$. Without
+  loss of generality, assume $a_i < b_i$.
+  We have $p_i^{b_i} \mid m$, so
+  $p_i^{b_i} \mid p_1^{a_1} \cdots p_{i - 1}^{a_{i - 1}} p_i^{a_i} p_{i + 1}^{a_{i + 1}} \cdots p_n^{a_n}$.
+  Thus $p_i^{b_i - a_i} \mid p_1^{a_1} \cdots p_{i - 1}^{a_{i - 1}} p_{i + 1}^{a_{i + 1}} \cdots p_n^{a_n}$.
+  Since $a_i < b_i$, we have
+  $b_i - a_i > 0$, so
+  $p_i \mid p_1^{a_1} \cdots p_{i - 1}^{a_{i - 1}} p_{i + 1}^{a_{i + 1}} \cdots p_n^{a_n}$
+  by the transitivity of divisibility.
+  Then $p_i \mid p_j$ for some $j \ne i$,
+  so $p_i = p_j$, which is a contradiction
+  since the $p_i$ are all distinct primes.
+  This proves uniqueness.
+\end{proof}
+
+\begin{remark}
+  This is one reason why we do not
+  consider $1$ to be a prime, as we would
+  lose uniqueness.
+\end{remark}
+
+\begin{example}
+  We can write $60 = 2^2 \cdot 3 \cdot 5$
+  and $756 = 2^2 \cdot 3^3 \cdot 7$.
+\end{example}
+
+\section{Least Common Multiples}
+
+\begin{definition}
+  Let $a, b \in \Z$ with $a, b > 0$.
+  The \emph{least common multiple}
+  of $a$ and $b$, denoted $[a, b]$, is the
+  least positive integer $m$ such that
+  $a \mid m$ and $b \mid m$.
+\end{definition}
+
+\begin{remark}
+  Since $ab$ is a common multiple
+  of $a$ and $b$, $[a, b]$ always
+  exists by the well-ordering principle.
+\end{remark}
+
+\begin{example}
+  We will compute $[6, 7]$. The multiples
+  of $6$ and $7$ include:
+  \begin{align*}
+    6 &: 6, 12, 18, 24, 30, 36, 42, 48, \dots; \\
+    7 &: 7, 14, 21, 28, 35, 42, 49, \dots.
+  \end{align*}
+  So we can see that $[6, 7] = 42 = 6 \cdot 7$.
+  On the other hand, $[6, 8] = 24 \ne 6 \cdot 8$.
+\end{example}
+
+\begin{remark}
+  The fundamental theorem of arithmetic
+  can be used to calculate both GCDs and
+  LCMs.
+\end{remark}
+
+\begin{prop}\label{prop:gcd-lcm-prime-factorization}
+  Let $a, b \in \Z$ with $a, b > 1$.
+  Write $a = p_1^{a_1} \cdots p_n^{a_n}$
+  and $b = p_1^{b_1} \cdots p_n^{b_n}$,
+  where the $p_i$ are distinct primes,
+  and $a_i, b_i \ge 0$. Then we have
+  \[
+    (a, b) = p_1^{\min\{a_1, b_1\}} \cdots p_n^{\min\{a_n, b_n\}} \quad \text{and} \quad
+    [a, b] = p_1^{\max\{a_1, b_1\}} \cdots p_n^{\max\{a_n, b_n\}}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Left as an exercise.
+\end{proof}
+
+\begin{example}
+  Calculate $(756, 2205)$ and
+  $[756, 2205]$. We can write
+  \[
+    756 = 2^2 \cdot 3^3 \cdot 5^0 \cdot 7^1
+    \quad \text{and} \quad
+    2205 = 2^0 \cdot 3^2 \cdot 5^1 \cdot 7^2.
+  \]
+  So we have
+  $(756, 2205) = 2^0 \cdot 3^2 \cdot 5^0 \cdot 7^1 = 63$ and
+  $[756, 2205] = 2^2 \cdot 3^3 \cdot 5 \cdot 7^2 = 26460$.
+\end{example}
+
+\begin{lemma}\label{lem:min-max-sum}
+  Given $x, y \in \R$, we have
+  $\min\{x, y\} + \max\{x, y\} = x + y$.
+\end{lemma}
+
+\begin{proof}
+  The result is obvious if $x = y$.
+  Otherwise, one is the minimum and the
+  other is the maximum.
+\end{proof}
+
+\begin{theorem}
+  Let $a, b \in \Z$ with $a, b > 1$. Then
+  $(a, b) [a, b] = ab$.
+\end{theorem}
+
+\begin{proof}
+  Write $a = p_1^{a_1} \cdots p_n^{a_n}$
+  and $b = p_1^{b_1} \cdots p_n^{b_n}$
+  with $a_i, b_i \ge 0$ and $p_i$
+  distinct. By Proposition
+  \ref{prop:gcd-lcm-prime-factorization},
+  \begin{align*}
+    (a, b) [a, b]
+    &= p_1^{\min\{a_1, b_1\}} \cdots p_n^{\min\{a_n, b_n\}}
+      p_1^{\max\{a_1, b_1\}} \cdots p_n^{\max\{a_n, b_n\}} \\
+    &= p_1^{\min\{a_1, b_1\} + \max\{a_1, b_1\}} \cdots
+      p_n^{\min\{a_n, b_n\} + \max\{a_n, b_n\}}
+    = p_1^{a_1 + b_1} \cdots p_n^{a_n + b_n}
+    = ab,
+  \end{align*}
+  where the third equality follows
+  from Lemma \ref{lem:min-max-sum}.
+\end{proof}
