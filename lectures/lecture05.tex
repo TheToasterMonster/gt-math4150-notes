@@ -1,0 +1,252 @@
+\chapter{Sept.~3 --- Congruences}
+
+\begin{quote}
+  \emph{No, Tony's the guy with no shins.}
+\end{quote}
+
+\section{Dirichlet's Theorem}
+
+\begin{theorem}[Dirichlet's theorem on primes in arithmetic progressions]
+  Let $a, b \in \Z$ with
+  $a, b > 0$ and $(a, b) = 1$. Then
+  the arithmetic progression
+  $a, a + b, a + 2b, a + 3b, \dots$
+  contains infinitely many primes.
+\end{theorem}
+
+\begin{remark}
+  Setting $a = b = 1$ recovers the
+  fact that there are infinitely many
+  primes.
+\end{remark}
+
+\begin{remark}
+  The general case of Dirichlet's theorem
+  is difficult, but we can use the
+  fundamental theorem of arithmetic
+  to prove some special cases, e.g.
+  when $a = 3$ and $b = 4$.
+\end{remark}
+
+\begin{lemma}\label{lem:4n+1-product}
+  Let $a, b \in \Z$. If $a$ and $b$ are
+  expressible as $4n + 1$, then so is
+  their product $ab$.
+\end{lemma}
+
+\begin{proof}
+  Let $a = 4m + 1$ and $b = 4n + 1$. Then
+  \[
+    ab = (4m + 1)(4n + 1)
+    = 16mn + 4m + 4n + 1
+    = 4(4mn + m + n) + 1,
+  \]
+  which proves the desired result.
+\end{proof}
+
+\begin{prop}
+  There are infinitely many primes
+  of the form $4n + 3$ with $n \ge 0$.
+\end{prop}
+
+\begin{proof}
+  Assume to the contrary that there are
+  finitely many primes of the form
+  $4n + 3$, say $3, p_1, \dots, p_r$.
+  Then consider the integer
+  $N = 4p_1 \cdots p_r + 3$. The prime
+  factorization of $N$ must contain a
+  prime of the form $4n + 3$, since
+  otherwise $N$ would be a product of
+  primes of the form $4n + 1$, which
+  must again be of the form $4n + 1$.
+  Thus we have $3 \mid N$ or $p_i \mid N$
+  for some $1 \le i \le r$.
+
+  If $3 \mid N$, then $3 \mid N - 3 = 4p_1 \dots p_r$,
+  which is a contradiction.
+  Otherwise, $p_i \mid N$ for some
+  $1 \le i \le r$, and we have
+  $p_i \mid N - 4p_1 \cdots p_r = 3$,
+  which is a contradiction as well.
+\end{proof}
+
+\begin{remark}
+  The same proof does not work for
+  primes of the form $4n + 1$, since a
+  product of numbers of the form
+  $4n + 3$ is not necessarily again
+  of the form $4n + 3$.
+\end{remark}
+
+\section{Congruences}
+
+\begin{definition}
+  Let $a, b, m \in \Z$ with $m > 0$.
+  Then we say that $a$ is \emph{congruent
+  to $b$ modulo $m$}, and we write
+  $a \equiv b \Pmod{m}$,
+  if $m \mid (a - b)$. The integer
+  $m$ is called the \emph{modulus}
+  of the congruence. We write
+  $a \not\equiv b \Pmod{m}$ if
+  $a$ is not congruent to $b$ modulo $m$.
+\end{definition}
+
+\begin{example}
+  We have $25 \equiv 1 \Pmod{4}$ and
+  $25 \equiv 4 \Pmod{7}$.
+\end{example}
+
+\begin{prop}\label{prop:congruence-equiv}
+  Congruence modulo $m$ is
+  an equivalence relation on $\Z$.
+\end{prop}
+
+\begin{proof}
+  Reflexivity is clear since
+  $m \mid 0 = (a - a)$ any $a \in \Z$,
+  so $a \equiv a \Pmod{m}$.
+  For symmetry, suppose that
+  $a \equiv b \Pmod{m}$. Then
+  $m \mid a - b$. But then $m \mid (-1)(a - b) = b - a$, so
+  $b \equiv a \Pmod{m}$ as well.
+
+  Finally, for transitivity, suppose that
+  $a \equiv b \Pmod{m}$ and
+  $b \equiv c \Pmod{m}$. Then
+  $m \mid a - b$ and $m \mid b - c$, so
+  $m$ also divides their sum
+  $m \mid (a - b) + (b - c) = a - c$, i.e.
+  $a \equiv c \Pmod{m}$.
+\end{proof}
+
+\begin{remark}
+  A consequence of Proposition
+  \ref{prop:congruence-equiv}
+  is that $\Z$ is partitioned into
+  its equivalence classes under congruence
+  modulo $m$. For $a \in \Z$, we
+  write $[a]$ to denote the equivalence
+  class of $a$ modulo $m$ (not to be
+  confused with the floor function).
+\end{remark}
+
+\begin{example}
+  The equivalence classes of $\Z$
+  under congruence modulo $4$ are
+  \begin{align*}
+    [0]
+    &= \{\dots, -8, -4, 0, 4, 8, \dots\}, \\
+    [1]
+    &= \{\dots, -7, -3, 1, 5, 9, \dots\}, \\
+    [2]
+    &= \{\dots, -6, -2, 2, 6, 10, \dots\}, \\
+    [3]
+    &= \{\dots, -5, -1, 3, 7, 11, \dots\}.
+  \end{align*}
+\end{example}
+
+\begin{definition}
+  A set of $m$ integers such that every
+  integer is congruent modulo $m$ to
+  exactly one integer of the set is
+  called a \emph{complete residue system}
+  modulo $m$.
+\end{definition}
+
+\begin{example}
+  $\{0, 1, 2, 3\}$ is a complete
+  residue system modulo $4$.
+  So is $\{4, 5, -6, -1\}$.
+\end{example}
+
+\begin{prop}
+  The set $\{0, 1, \dots, m - 1\}$
+  is a complete residue system
+  modulo $m$.
+\end{prop}
+
+\begin{proof}
+  First we prove that every integer
+  is congruent to one of
+  $0, 1, \dots, m - 1$ modulo $m$.
+  By the division algorithm, for any
+  $a \in \Z$, there exist $q, r \in \Z$
+  with $0 \le r \le m - 1$ such that
+  $a = qm + r$. Thus we have
+  $a - r = qm$, so $m \mid a - r$, i.e.
+  $a \equiv r \Pmod{m}$. This proves
+  existence since $r \in \{0, 1, \dots, m - 1\}$.
+
+  Now we show uniqueness. Suppose
+  $a \equiv r_1 \Pmod{m}$ and
+  $a \equiv r_2 \Pmod{m}$ where
+  $r_1, r_2 \in \{0, 1, \dots, m - 1\}$.
+  By transitivity, we have
+  $r_1 \equiv r_2 \Pmod{m}$, so
+  $m \mid r_1 - r_2$. But
+  $0 \le r_1, r_2 \le m - 1$, so
+  \[
+    -(m - 1) \le r_1 - r_2 \le m - 1,
+  \]
+  so we must have $r_1 - r_2 = 0$, i.e.
+  $r_1 = r_2$. This proves uniqueness.
+\end{proof}
+
+\begin{definition}
+  The set $\{0, 1, \dots, m - 1\}$ is
+  called the set of \emph{least nonnegative residues}
+  modulo $m$.
+\end{definition}
+
+\begin{prop}
+  Let $a, b, c, d, m \in \Z$, $m > 0$
+  such that $a \equiv b \Pmod{m}$
+  and $c \equiv d \Pmod{m}$. Then
+  \begin{enumerate}
+    \item $a + c \equiv b + d \Pmod{m}$;
+    \item $ac \equiv bd \Pmod{m}$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  Since $a \equiv b \Pmod{m}$ and
+  $c \equiv d \Pmod{m}$, we have
+  $m \mid b - a$ and $m \mid d - c$.
+  Then $m$ divides
+  \[
+    (b - a) + (d - c)
+    = (b + d) - (a + c),
+  \]
+  so we have $a + c \equiv b + d \Pmod{m}$.
+  This proves (1).
+
+  To prove (2), note that
+  since $m \mid a - b$, we also have
+  $m \mid c(a - b)$. Likewise,
+  $m \mid d - c$ implies $m \mid b(d - c)$.
+  Then $m$ divides the difference
+  \[
+    c(a - b) - b(d - c)
+    = ac - bd,
+  \]
+  which shows that $ac \equiv bd \Pmod{m}$.
+  This shows (2).
+\end{proof}
+
+\begin{remark}
+  This shows that the congruence classes
+  of $\Z$ modulo $m$ form a \emph{ring}.
+\end{remark}
+
+\begin{remark}
+  Consider the complete residue system
+  $\{0, 1, 2, 3\}$ modulo $4$. Their
+  squares modulo $4$ are
+  \[
+    \{0^2, 1^2, 2^2, 3^2\}
+    \equiv \{0, 1, 0, 1\}
+    \equiv \{0, 1\} \pmod{4}.
+  \]
+\end{remark}
