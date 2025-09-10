@@ -1,0 +1,269 @@
+\chapter{Sept.~10 --- Chinese Remainder Theorem}
+
+\section{More on Linear Congruences}
+
+\begin{corollary}
+  Consider the linear congruence
+  $ax \equiv b \Pmod{m}$ and let
+  $d = (a, m)$. If $d \mid b$, then
+  there are exactly $d$ incongruent
+  solutions modulo $m$, given by
+  \[
+    x = x_0 + \frac{m}{d} \cdot n,
+    \quad n = 0, 1, \dots, d - 1
+  \]
+  where $x_0$ is any particular solution.
+\end{corollary}
+
+\begin{example}
+  We solve $16 x \equiv 8 \Pmod{28}$. We
+  compute
+  $d = (16, 28)$ by the Euclidean algorithm:
+  \begin{align*}
+    28 &= 1 \cdot 16 + 12 \\
+    16 &= 1 \cdot 12 + 4 \\
+    12 &= 3 \cdot 4 + 0.
+  \end{align*}
+  So $d = 4$. Since $4 \mid 8$, the
+  congruence has $4$ incongruent solutions.
+  Working backwards, we have
+  \[
+    4 = 2 \cdot 16 + (-1) \cdot 28.
+  \]
+  Multiplying by $2$, we get that
+  $8 = 4 \cdot 16 + (-2) \cdot 28$.
+  Taking this equation modulo $28$, we get
+  \[
+    16 \cdot 4 \equiv 8 \Pmod{28},
+  \]
+  so $x_0 = 4$ is a particular solution.
+  Thus all the incongruent solutions
+  are given by
+  $x = 4 + (28 / 4) n$ for
+  $n = 0, 1, 2, 3$, that is
+  $x = 4, 11, 18, 25$.
+\end{example}
+
+\begin{definition}
+  Any solution of $ax \equiv 1 \Pmod{m}$
+  is called the \emph{multiplicative inverse}
+  of $a$ modulo $m$. The multiplicative
+  inverse of $a$ is often denoted
+  $\overline{a}$.
+\end{definition}
+
+\begin{corollary}
+  The congruence $ax \equiv 1 \Pmod{m}$
+  has a solution if and only if
+  $(a, m) = 1$. In this case, the
+  congruence has a unique solution.
+  In particular, the multiplicative
+  inverse, if it exists, is unique.
+\end{corollary}
+
+\section{The Chinese Remainder Theorem}
+
+\begin{example}\label{ex:crt-example}
+  Consider the following problem:
+  Find a positive integer having
+  remainder $2$ when divided by $3$,
+  remainder $1$ when divided by $4$,
+  and remainder $3$ when divided by $5$.
+  The problem can be rephrased as
+  asking for a solution to the system
+  of congruences:
+  \[
+    \begin{cases}
+      x \equiv 2 \Pmod{3} \\
+      x \equiv 1 \Pmod{4} \\
+      x \equiv 3 \Pmod{5}.
+    \end{cases}
+  \]
+\end{example}
+
+\begin{theorem}[Chinese remainder theorem]
+  Let $m_1, \dots, m_n$ be pairwise
+  relatively prime positive integers,
+  and let $b_1, \dots, b_n \in \Z$.
+  Then the system of congruences
+  \[
+    \begin{cases}
+      x \equiv b_1 \Pmod{m_1} \\
+      x \equiv b_2 \Pmod{m_2} \\
+      \quad \vdots \\
+      x \equiv b_n \Pmod{m_n}
+    \end{cases}
+  \]
+  has a unique solution modulo
+  $M = m_1 \cdots m_n$.
+\end{theorem}
+
+\begin{proof}
+  Let $M = m_1 \cdots m_n$ and
+  $M_i = M / m_i$. Then
+  $(M_i, m_i) = 1$, so there are solutions
+  to each system
+  $M_i x_i \equiv 1 \Pmod{m_i}$ given
+  by $x_i = \overline{M}_i$. Consider
+  \[
+    x = b_1 M_1 \overline{M}_1
+    + b_2 M_2 \overline{M}_2
+    + \cdots
+    + b_n M_n \overline{M}_n.
+  \]
+  Note that $m_i \mid M_j$ for
+  $i \ne j$, so
+  $x \equiv b_i M_i \overline{M}_i \equiv b_i \Pmod{m_i}$,
+  so $x$ is a solution to the system.
+
+  For uniqueness modulo $M$, let
+  $x'$ be another solution. Then
+  $x' \equiv b_i \Pmod{m_i}$ for
+  each $1 \le i \le n$. Then
+  \[
+    x \equiv x' \Pmod{m_i}, \quad
+    1 \le i \le n.
+  \]
+  Thus $m_i \mid x - x'$, so
+  $M \mid x - x'$ since the $m_i$
+  are pairwise relatively prime,
+  so $x \equiv x' \Pmod{M}$.
+\end{proof}
+
+\begin{example}
+  We now solve Example
+  \ref{ex:crt-example}. Using the
+  notation in the proof, we have
+  \[
+    (m_1, m_2, m_3) = (3, 4, 5), \quad
+    (b_1, b_2, b_3) = (2, 1, 3), \quad
+    M = 60,
+    \quad
+    (M_1, M_2, M_3) = (20, 15, 12).
+  \]
+  We still need to compute
+  $\overline{M}_i$. In general, this
+  can be done via the Euclidean algorithm.
+  In this case,
+  \[
+    (\overline{M}_1, \overline{M}_2, \overline{M}_3)
+    = (2, 3, 3).
+  \]
+  Now we can calculate the solution
+  using
+  \[
+    x = b_1 M_1 \overline{M}_1
+    + b_2 M_2 \overline{M}_2
+    + b_3 M_3 \overline{M}_3
+    = (2 \cdot 20 \cdot 2)
+    + (1 \cdot 15 \cdot 3)
+    + (3 \cdot 12 \cdot 3)
+    = 233.
+  \]
+  Reducing modulo $60$, we get that the
+  unique solution is given by
+  $x \equiv 53 \Pmod{60}$.
+\end{example}
+
+\section{Wilson's Theorem}
+
+\begin{lemma}\label{lem:self-inverse}
+  Let $p$ be a prime and let
+  $a \in \Z$. Then
+  $a$ is its own inverse modulo $p$
+  (i.e., $a \equiv \overline{a} \Pmod{p}$)
+  if and only if $a \equiv \pm 1 \Pmod{p}$.
+\end{lemma}
+
+\begin{proof}
+  $(\Rightarrow)$ Suppose
+  $a \equiv \overline{a} \Pmod{p}$.
+  Then $a^2 \equiv a \overline{a} \equiv 1 \Pmod{p}$, so
+  $p \mid a^2 - 1 = (a - 1)(a + 1)$.
+  Since $p$ is prime, we have
+  $p \mid a - 1$ or $p \mid a + 1$, so
+  $a \equiv \pm 1 \Pmod{p}$.
+
+  $(\Leftarrow)$ This is obvious since
+  $(\pm 1)^2 = 1$ in $\Z$, so they
+  are also equal after reducing modulo $p$.
+\end{proof}
+
+\begin{theorem}[Wilson's theorem]\label{thm:wilson}
+  Let $p$ be a prime. Then
+  $(p - 1)! \equiv -1 \Pmod{p}$.
+\end{theorem}
+
+\begin{example}
+  The idea behind the proof is the
+  following: Concretely, if $p = 11$, we
+  have
+  \[
+    (11 - 1)! =
+    10 \cdot 9 \cdot 8 \cdot 7 \cdot 6 \cdot
+    5 \cdot 4 \cdot 3 \cdot 2 \cdot 1
+    \pmod{11}
+  \]
+  By Lemma \ref{lem:self-inverse},
+  $10$ and $1$ are their own inverses
+  modulo $11$.
+  For each other integer $2 \le n \le 9$,
+  we can pair them with their inverses:
+  $(2, 6)$, $(3, 4)$, $(5, 9)$, $(7, 8)$.
+  Then we can write
+  \[
+    (11 - 1)!
+    \equiv (9 \cdot 5) \cdot (8 \cdot 7)
+    \cdot (6 \cdot 2) \cdot (4 \cdot 3)
+    \cdot 10 \cdot 1
+    \equiv 10 \cdot 1 \equiv -1 \pmod{11}.
+  \]
+\end{example}
+
+\begin{proof}[Proof of Theorem \ref{thm:wilson}]
+  We can easily check the theorem
+  for $p = 2, 3$, so suppose
+  $p > 3$ is a prime. Then each $a$
+  with $1 \le a \le p - 1$ has a unique
+  inverse modulo $p$, and this inverse
+  is distinct from $a$ if
+  $2 \le a \le p - 2$. Pair each such
+  integer with its inverse modulo $p$,
+  say $a$ and $a'$. The product of
+  all of these pairs is
+  $(p - 2)!$, so
+  $(p - 2)! \equiv 1 \Pmod{p}$.
+  Thus $(p - 1)! \equiv p - 1 \equiv -1 \Pmod{p}$.
+\end{proof}
+
+\begin{prop}[Converse of Wilson's theorem]
+  Let $n \in \Z$ with $n > 1$. If
+  $(n - 1)! \equiv -1 \Pmod{n}$, then
+  $n$ is prime.
+\end{prop}
+
+\begin{proof}
+  Suppose $n = ab$ with $1 \le a < n$.
+  It suffices to show that $a = 1$.
+  Since $a < n$, we have
+  $a \mid (n - 1)!$. Also,
+  $n \mid (n - 1)! + 1$ by assumption,
+  so $a \mid (n - 1)! + 1$ also since
+  $a \mid n$. Thus
+  \[
+    a \mid ((n - 1)! + 1) - (n - 1)! = 1,
+  \]
+  so we must have $a = 1$.
+\end{proof}
+
+\begin{definition}
+  A prime $p$ is a \emph{Wilson prime}
+  if $(p - 1)! \equiv -1 \Pmod{p^2}$.
+\end{definition}
+
+\begin{example}
+  The first few Wilson primes are
+  $5, 13, 563$.
+  In fact, these are the only known
+  ones.
+\end{example}
