@@ -1,0 +1,277 @@
+\chapter{Sept.~15 --- Fermat's Little Theorem}
+
+\begin{quote}
+  \emph{What do you call it when you have
+  your grandmother on speed dial?
+  It's an insta gram.}
+\end{quote}
+
+\section{Fermat's Little Theorem}
+
+\begin{theorem}[Fermat's little theorem]
+  Let $p$ be a prime and $a \in \Z$
+  such that $p \nmid a$. Then
+  \[
+    a^{p - 1} \equiv 1 \pmod{p}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Consider the $p - 1$ integers
+  $a, 2a, 3a, \dots, (p - 1)a$. Note that
+  $p \nmid a_i$ for any $1 \le i \le p - 1$.
+  Note also that no two of these integers
+  are congruent modulo $p$: If $a i \equiv a j \Pmod{p}$
+  for some $i \ne j$, then we
+  can multiply by the inverse $\overline{a}$
+  of $a$ (which exists since $p \nmid a$)
+  to get $i \equiv j \Pmod{p}$, which
+  is impossible.
+  Thus $\{a, 2a \dots, (p - 1)a\}$ is a
+  complete nonzero residue system, so
+  \[
+    a(2a)(3a) \cdots ((p - 1)a)
+    \equiv 1 \cdot 2 \cdot 3 \cdots (p - 1)
+    \pmod{p}.
+  \]
+  Then $a^{p - 1}(p - 1)! \equiv (p - 1)! \Pmod{p}$, so
+  $a^{p - 1} \equiv 1 \Pmod{p}$
+  since $p \nmid (p - 1)!$.
+\end{proof}
+
+\begin{corollary}
+  Let $p$ be prime and $a \in \Z$ with
+  $p \nmid a$. Then
+  $a^{p - 2}$ is the inverse of $a$
+  modulo $p$.
+\end{corollary}
+
+\begin{proof}
+  By Fermat's little theorem,
+  $a \cdot a^{p - 2} = a^{p - 1} \equiv 1 \Pmod{p}$.
+\end{proof}
+
+\begin{corollary}
+  Let $p$ be prime and $a \in \Z$.
+  Then $a^p \equiv a \Pmod{p}$.
+\end{corollary}
+
+\begin{proof}
+  If $p \mid a$, then both
+  sides are congruent to
+  $0$ modulo $p$. Otherwise, if
+  $p \nmid a$, then we can write
+  $a^p = a \cdot a^{p - 1} \equiv a \cdot 1 = a \Pmod{p}$
+  by Fermat's little theorem.
+\end{proof}
+
+\begin{corollary}
+  Let $p$ be prime. Then
+  $2^p \equiv 2 \Pmod{p}$.
+\end{corollary}
+
+\begin{definition}
+  If $n \in \Z$ is composite and
+  $2^n \equiv 2 \Pmod{n}$,
+  then $n$ is called a \emph{pseudoprime}.
+\end{definition}
+
+\begin{remark}
+  It is known that there are infinitely
+  many (even and odd) pseudoprimes.
+\end{remark}
+
+\begin{example}
+  Consider $n = 341 = 11 \cdot 31$.
+  To prove that $2^{341} \equiv 2 \Pmod{341}$,
+  it suffices to show that
+  $2^{341} \equiv 2 \Pmod{11}$
+  and $2^{341} \equiv 2 \Pmod{31}$
+  by the Chinese remainder theorem.
+  Note that
+  \begin{align*}
+    2^{341}
+    = (2^{10})^{34} \cdot 2 \equiv
+    1^{34} \cdot 2 &= 2 \pmod{11} \\
+    2^{341} = (2^{30})^{11} \cdot 2^{11}
+    \equiv 1^{11} \cdot (2^5)^2 \cdot 2
+    \equiv 1^2 \cdot 2 &= 2 \pmod{31}
+  \end{align*}
+  by Fermat's little theorem, so
+  $341$ is a pseudoprime.
+\end{example}
+
+\section{Euler's Theorem}
+
+\begin{definition}
+  Let $n \in \Z$, $n > 0$.
+  \emph{Euler's phi function}, denoted
+  $\varphi(n)$, is the number of
+  positive integers $\le n$ that are
+  relatively prime to $n$. In other words,
+  \[
+    \varphi(n)
+    = \#\{m \in \Z : 1 \le m \le n, (m, n) = 1\}.
+  \]
+\end{definition}
+
+\begin{example}
+  We have $\varphi(4) = 2$,
+  $\varphi(14) = 6$, and
+  $\varphi(p) = p - 1$ for any prime $p$.
+\end{example}
+
+\begin{theorem}[Euler's theorem]
+  Let $a, m \in \Z$ with $m > 0$. If
+  $(a, m) = 1$, then
+  \[
+    a^{\varphi(m)} \equiv 1 \pmod{m}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let $r_1, r_2, \dots, r_{\varphi(m)}$
+  be the distinct positive integers
+  not exceeding $m$ such that
+  $(r_i, m) = 1$. Then consider the
+  integers $a r_1, a r_2, \dots, a r_{\varphi(m)}$.
+  Note first that
+  $(a r_i, m) = 1$ since
+  $(r_i, m) = 1$ and $(a, m) = 1$
+  by assumption. Note also that
+  $a r_i \not\equiv a r_j \Pmod{m}$
+  for $i \ne j$ since
+  $\overline{a}$ exists (since
+  $(a, m) = 1$), and multiplying
+  by $\overline{a}$ implies
+  $r_i \equiv r_j \Pmod{m}$, which is
+  impossible. Thus the least
+  nonnegative residues of
+  $\{a r_1, \dots, a r_{\varphi(m)}\}$
+  coincide with
+  $\{r_1, \dots, r_{\varphi(m)}\}$, so
+  we have
+  \[
+    (a r_1)(a r_2) \cdots (a r_{\varphi(m)})
+    = r_1 r_2 \cdots r_{\varphi(m)} \pmod{m},
+  \]
+  thus $a^{\varphi(m)} (r_1 \cdots r_{\varphi(m)}) \equiv (r_1 \cdots r_{\varphi(m)}) \Pmod{m}$.
+  Since $(r_1 \cdots r_{\varphi(m)}, m) = 1$,
+  the inverse of $r_1 \cdots r_{\varphi(m)}$
+  modulo $m$ exists, and
+  multiplying by the inverse
+  gives $a^{\varphi(m)} \equiv 1 \Pmod{m}$.
+\end{proof}
+
+\begin{remark}
+  Taking $m = p$ recovers Fermat's little theorem
+  since $\varphi(p) = p - 1$ for prime $p$.
+\end{remark}
+
+\begin{definition}
+  Let $m$ be a positive integer.
+  A set of $\varphi(m)$ integers
+  such that each integer is relatively
+  prime to $m$ and no two are
+  congruent modulo $m$ is called
+  a \emph{reduced residue system}
+  modulo $m$.
+\end{definition}
+
+\begin{example}
+  $\{1, 5, 7, 11\}$ is a reduced
+  residue system modulo $12$.
+  So is
+  \[
+    \{5(1), 5(5), 5(7), 5(11)\}
+    = \{5, 25, 35, 55\}.
+  \]
+  For a prime $p$, the set
+  $\{1, 2, \dots, p - 1\}$ is always a
+  reduced residue system modulo $p$.
+\end{example}
+
+\begin{corollary}
+  Let $a, m \in \Z$ with $m > 0$
+  and $(a, m) = 1$. Then
+  $\overline{a} \equiv a^{\varphi(m) - 1} \Pmod{m}$.
+\end{corollary}
+
+\section{Arithmetic Functions and Multiplicativity}
+
+\begin{definition}
+  An \emph{arithmetic function} is a
+  function whose domain is the set of
+  positive integers.
+\end{definition}
+
+\begin{example}\label{ex:arith-funcs}
+  The following are examples of
+  arithmetic functions:
+  \begin{enumerate}
+    \item Euler's $\varphi$ function;
+    \item $v(n)$, the number of
+      positive divisors of $n$;
+    \item $\sigma(n)$, the sum of
+      the positive divisors of $n$;
+    \item $\omega(n)$, the number of
+      distinct prime factors of $n$;
+    \item $p(n)$, the number of
+      integer partitions of $n$;
+    \item $\Omega(n)$, the number of
+      total prime factors (counted with
+      multiplicity) of $n$.
+  \end{enumerate}
+\end{example}
+
+\begin{definition}
+  An arithmetic function
+  $f$ is \emph{multiplicative} if
+  $f(mn) = f(m) f(n)$ whenever
+  $(m, n) = 1$.
+  We say that $f$ is \emph{completely multiplicative}
+  if $f(mn) = f(m) f(n)$ for all
+  $m, n$.
+\end{definition}
+
+\begin{remark}
+  Note that if $n > 1$, then we can write
+  $n = p_1^{a_1} \cdots p_r^{a_r}$.
+  If $f$ is multiplicative, then
+  \[
+    f(n) = f(p_1^{a_1} \cdots p_r^{a_r})
+    = f(p_1^{a_1}) \cdots f(p_r^{a_r}).
+  \]
+  So multiplicative functions are
+  determined by their values at
+  prime powers. If
+  $f$ is completely multiplicative,
+  then $f(n) = f(p_1)^{a_1} \cdots f(p_r)^{a_r}$
+  and $f$ is determined by its values
+  at primes.
+\end{remark}
+
+\begin{example}
+  The functions $\varphi, v, \sigma$
+  from Example \ref{ex:arith-funcs}
+  are multiplicative, while
+  $\omega, p, \Omega$ are not.
+\end{example}
+
+\begin{example}
+  The functions $f(n) = 1$ and $f(n) = 0$
+  are completely multiplicative. The
+  function $f$ defined by
+  $f(1) = 1$ and $f(n) > 0$ if $n > 1$
+  is also completely multiplicative.
+\end{example}
+
+\begin{remark}
+  If $f$ is multiplicative and not
+  identically zero, then $f(1) = 1$.
+  To see this, take $n$ such
+  that $f(n) \ne 0$ (since $f$ is not
+  identically zero). Then
+  $f(n) = f(n \cdot 1) = f(n) f(1)$, so
+  $f(1) = 1$ since $f(n) \ne 0$.
+\end{remark}
