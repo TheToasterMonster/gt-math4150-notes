@@ -1,0 +1,236 @@
+\chapter{Sept.~17 --- Arithmetic Functions}
+
+\section{Properties of Multiplicative Functions}
+
+\begin{remark}
+  We write $\sum_{d \mid n} f(d)$
+  to denote a sum over the positive
+  divisors of $n$. For instance,
+  \[
+    \sum_{d \mid 12} f(d)
+    = f(1) + f(2) + f(3) + f(4) + f(6) + f(12).
+  \]
+\end{remark}
+
+\begin{theorem}
+  Let $f$ be an arithmetic function, and
+  for $n \in \Z$, $n > 0$, define
+  \[
+    F(n) = \sum_{d \mid n} f(d).
+  \]
+  If $f$ is multiplicative, then so is
+  $F$.
+\end{theorem}
+
+\begin{proof}
+  Let $m, n$ be relative prime. We need
+  to show that $F(mn) = F(m)F(n)$. We have
+  \[
+    F(mn) = \sum_{d \mid mn} f(d).
+  \]
+  We claim that every divisor $d$ of
+  $mn$ can be written uniquely as
+  $d = d_1 d_2$, where $d_1 \mid m$ and
+  $d_2 \mid m$. Moreover, any such
+  product $d_1 d_2$ is a divisor of $mn$.
+  To see this, write
+  $m = p_1^{a_1} \dots p_r^{a_r}$ and
+  $n = q_1^{b_1} \dots q_s^{b_s}$, where
+  all the $p_1, \dots, p_r, q_1, \dots, q_s$
+  are distinct. Then if $d \mid mn$, then
+  \[
+    d = p_1^{e_1} \dots p_r^{e_r} q_1^{f_1} \dots q_s^{f_s},
+    \quad 0 \le e_i \le q_i, 0 \le f_j \le b_j.
+  \]
+  Then we must choose $d_1 = p_1^{e_1} \dots p_r^{e_r}$
+  and $d_2 = q_1^{f_1} \dots q_s^{f_s}$,
+  which proves the claim.
+
+  Using the claim, we can split the sum
+  into
+  \[
+    F(mn) = \sum_{d \mid mn} f(d)
+    = \sum_{d_1 \mid m} \sum_{d_2 \mid n} f(d_1 d_2)
+    = \sum_{d_1 \mid m} \sum_{d_2 \mid n} f(d_1) f(d_2)
+    = F(m) F(n),
+  \]
+  where we note that $(d_1, d_2) = 1$
+  since $(m, n) = 1$.
+\end{proof}
+
+\begin{example}
+  Let $m = 4$, $n = 3$. Then we can write
+  \begin{align*}
+    F(3 \cdot 4)
+    = \sum_{d \mid 12}
+    f(d)
+    &= f(1) + f(2) + f(3) + f(4) + f(6) + f(12) \\
+    &= f(1 \cdot 1) + f(1 \cdot 2) + f(3 \cdot 1) + f(1 \cdot 4) + f(3 \cdot 2) + f(3 \cdot 4) \\
+    &= f(1) f(1) + f(1) f(2) + f(3) f(1) + f(1) f(4) + f(3) f(2) + f(3) f(4) \\
+    &= (f(1) + f(3))(f(1) + f(2) + f(4))
+    = F(3) F(4).
+  \end{align*}
+\end{example}
+
+\section{Properties of the Euler Phi Function}
+
+\begin{theorem}
+  The Euler $\varphi$ function is
+  multiplicative.
+\end{theorem}
+
+\begin{proof}
+  Let $m, n \in \Z$, $m, n > 0$ with
+  $(m, n) = 1$. We need to show that
+  $\varphi(mn) = \varphi(m) \varphi(n)$.
+  Consider the array of positive integers
+  $\le mn$ organized as follows:
+  \[
+  \begin{matrix}
+    1 & m + 1 & 2m + 1 & \cdots & (n - 1)m + 1 \\
+    2 & m + 2 & 2m + 2 & \cdots & (n - 1)m + 2 \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    i & m + i & 2m + i & \cdots & (n - 1)m + i \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    m & 2m & 3m & \cdots & nm
+  \end{matrix}
+  \]
+  Consider the $i$th row. If $(i, m) > 1$,
+  then no element on the $i$th row is
+  relatively prime to $m$ (and hence
+  cannot be relatively prime to $mn$). Thus
+  we may restrict our attention to those
+  $i$ that satisfy $(i, m) = 1$. There
+  are, by definition, $\varphi(m)$
+  such values of $i$. The entries in the
+  $i$th row are
+  \[
+    i, \quad m + i, \quad 2m + i, \quad \dots, \quad (n - 1)m + i.
+  \]
+  We claim that this is a complete
+  residue system modulo $n$. To see this,
+  suppose that
+  \[
+    km + i \equiv jm + i \pmod{n},
+    \quad 0 \le k, j \le n - 1.
+  \]
+  Then $km \equiv jm \Pmod{n}$. Since
+  $(m, n) = 1$, this implies
+  $k \equiv j \Pmod{n}$. Since
+  $0 \le k, j \le n - 1$, we must have
+  $k = j$. The claim follows since
+  we have $n$ non-congruent elements
+  (modulo $n$)
+  in the list. Thus, there are
+  $\varphi(n)$ elements in the $i$th row
+  that are relatively prime to $n$. Also,
+  $(km + i, m) = (i, m) = 1$
+  by the Euclidean algorithm, so
+  they are relatively prime to $m$ as well. Thus
+  $\varphi(mn) = \varphi(m) \varphi(n)$.
+\end{proof}
+
+\begin{theorem}
+  Let $p$ be prime, $a \in \Z$, $a > 0$.
+  Then $\varphi(p^a) = p^a - p^{a - 1}$.
+\end{theorem}
+
+\begin{proof}
+  The total number of integers
+  not exceeding $p^a$ is $p^a$. The only
+  integers not relatively prime to
+  $p^a$ are the multiples of $p$:
+  $p, 2p, 3p, \dots, (p^{a - 1}) p$.
+  There are $p^{a - 1}$ such integers, so
+  $\varphi(p^a) = p^a - p^{a - 1}$.
+\end{proof}
+
+\begin{theorem}\label{thm:phi-product}
+  Let $n \in \Z$, $n > 0$. Then
+  \[
+    \varphi(n) = n \prod_{p \mid n} \left(1 - \frac{1}{p}\right).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Write $n = p_1^{a_1} \dots p_r^{a_r}$.
+  Then
+  \begin{align*}
+    \varphi(n)
+    = \varphi(p_1^{a_1} \cdots p_r^{a_r})
+    &= \varphi(p_1^{a_1}) \cdots \varphi(p_r^{a_r})
+    = (p_1^{a_1} - p_1^{a_1 - 1}) \cdots (p_r^{a_r} - p_r^{a_r - 1}) \\
+    &= p_1^{a_1} \cdots p_r^{a_r} \left(1 - \frac{1}{p_1}\right) \cdots \left(1 - \frac{1}{p_r}\right)
+    = n \prod_{p \mid n} \left(1 - \frac{1}{p}\right).
+  \end{align*}
+  This proves the desired formula.
+\end{proof}
+
+\begin{remark}
+  One can interpret
+  Theorem \ref{thm:phi-product}
+  probabilistically: It says that
+  $\varphi(n)$ is $n$ times the ``probability''
+  that an integer is not divisible by any
+  of the primes dividing $n$.
+\end{remark}
+
+\begin{example}
+  Consider $n = 504 = 2^3 \cdot 3^2 \cdot 7$.
+  Then $\varphi(n)$ is given by
+  \[
+    \varphi(504)
+    = 504 \left(1 - \frac{1}{2}\right)
+    \left(1 - \frac{1}{3}\right)
+    \left(1 - \frac{1}{7}\right)
+    = 504 \cdot \frac{1}{2} \cdot \frac{2}{3} \cdot \frac{6}{7} = 144.
+  \]
+\end{example}
+
+\begin{theorem}[Gauss]
+  Let $n \in \Z$, $n > 0$. Then
+  \[
+    \sum_{d \mid n} \varphi(d) = n.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let $d$ be a divisor of $n$. Define
+  the set
+  \[
+    S_d = \{1 \le m \le n : (m, n) = d\}.
+  \]
+  Note that $(m, n) = d$ if and only if
+  $(m / d, n / d) = 1$. Thus
+  $|S_d| = \varphi(n / d)$. Note also
+  that every integer less than or equal to
+  $n$ belongs to exactly one of the
+  $S_d$, so
+  \[
+    n = \sum_{d \mid n} |S_d| = \sum_{d \mid n} \varphi(n / d)
+    = \sum_{d \mid n} \varphi(d),
+  \]
+  which the last equality follows since
+  $\{d : d \mid n\} = \{n / d : d \mid n\}$.
+\end{proof}
+
+\begin{example}
+  Let $n = 12$. We verify that
+  $12 = \sum_{d \mid 12} \varphi(d)$.
+  Write the table
+  \begin{center}
+  \begin{tabular}{c|c}
+    $d$ & $S_d$ \\
+    \hline
+    $1$ & $\{1, 5, 7, 11\}$ \\
+    $2$ & $\{2, 10\}$ \\
+    $3$ & $\{3, 9\}$ \\
+    $4$ & $\{4, 8\}$ \\
+    $6$ & $\{6\}$ \\
+    $12$ & $\{12\}$
+  \end{tabular}
+  \end{center}
+  Summing the $|S_d| = \varphi(12 / d)$, we
+  indeed get
+  $12 = 4 + 2 + 2 + 2 + 1 + 1$.
+\end{example}
