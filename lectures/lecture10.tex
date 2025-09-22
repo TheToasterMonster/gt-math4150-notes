@@ -1,0 +1,214 @@
+\chapter{Sept.~22 --- Exam 1 Review}
+
+\begin{quote}
+  \emph{Why are Saturday and Sunday the
+  strongest days? The other
+  are week days.}
+\end{quote}
+
+\section{Practice Problems}
+
+\begin{exercise}
+  Show that $\varphi$ is multiplicative
+  but not completely multiplicative.
+\end{exercise}
+
+\begin{proof}
+  The idea for the first part is to
+  draw an $m \times n$ table of the
+  first $mn$ integers,
+  see the proof of Theorem
+  \ref{thm:phi-multiplicative} for
+  the details.
+  For the second part,
+  note that
+  $\varphi(2) = 1$, $\varphi(2)^2 = 1$,
+  but $\varphi(4) = 2$.
+\end{proof}
+
+\begin{proof}[Alternative proof]
+  Let $R_k$ denote the set of residue
+  classes modulo $k$ that are coprime
+  to $k$.
+  Note that $|R_k| = \varphi(k)$, so
+  it suffices to show there is a
+  bijection $\psi : R_{mn} \to R_m \times R_n$
+  for $(m, n) = 1$.
+  Define
+  \[\psi(a) = (a \Mod{m}, a \Mod{n}).\]
+  To see that $\psi$ is surjective,
+  let $(b, c) \in R_m \times R_n$. Since
+  $(m, n) = 1$, by
+  the Chinese remainder theorem there
+  exists $a \in \Z$, defined modulo
+  $mn$, such that
+  $a \equiv b \Pmod{m}$ and
+  $a \equiv c \Pmod{n}$.
+  So $\psi(a) = (b, c)$. Note that
+  $(a, mn) = 1$ since
+  $(a, m) = (b, m) = 1$
+  and $(a, n) = (c, n) = 1$, so
+  $a \in R_{mn}$.
+  Injectivity follows
+  since the choice of
+  $a$ is unique modulo $mn$ by
+  the Chinese remainder theorem.
+\end{proof}
+
+\begin{exercise}
+  Compute $(163, 67)$ by the Euclidean
+  algorithm.
+\end{exercise}
+
+\begin{proof}
+  We compute that
+  \begin{align*}
+  (163, 67)
+  &= (163 - 134, 67) = (29, 67) \\
+  &= (29, 67 - 2 \cdot 29) = (29, 9) \\
+  &= (29 - 3 \cdot 9, 9) = (2, 9) \\
+  &= (2, 9 - 4 \cdot 2) = (2, 1),
+  \end{align*}
+  so we have $(163, 67) = 1$.
+\end{proof}
+
+\begin{exercise}
+  State and prove Wilson's theorem.
+\end{exercise}
+
+\begin{proof}
+  Wilson's theorem states
+  that $(p - 1)! \equiv -1 \Pmod{p}$
+  for prime $p$ (the converse also holds).
+  The idea behind the
+  proof is to note that each residue
+  modulo $p$
+  other than $\pm 1$ can be paired with
+  its (distinct) additive
+  inverse modulo $p$.
+  For the details, see the proof of
+  Theorem \ref{thm:wilson}.
+\end{proof}
+
+\begin{exercise}
+  Find the least positive solution
+  $x$ to the congruence
+  $x \equiv 20^{110} \Pmod{17}$.
+\end{exercise}
+
+\begin{proof}
+  Use Fermat's little theorem: The division
+  algorithm gives
+  $110 = 6 \cdot 16 + 14$, so
+  \begin{align*}
+    x
+    &\equiv 20^{6 \cdot 16 + 14}
+    \equiv (20^{16})^6 \cdot 20^{14}
+    \pmod{17} \\
+    &= 1^6 \cdot 20^{14}
+    \equiv 20^{14}
+    = 3^{14} \pmod{17}.
+  \end{align*}
+  Multiplying both sides by $3^2$ gives
+  $9x \equiv 3^2 x \equiv 3^{16} \equiv 1 \Pmod{17}$, so
+  it suffices to find the inverse
+  of $9$ modulo $17$. Using the
+  Euclidean algorithm, we have
+  \[
+    (17, 9)
+    = (17 - 9, 9) = (8, 9)
+    = (8, 9 - 8) = (8, 1)
+    = 1,
+  \]
+  so $1 = 9 - 8 = 9 - (17 - 9) = 2 \cdot 9 - 17$.
+  Thus $\overline{9} \equiv 2 \Pmod{17}$,
+  so we can take $x = 2$.
+\end{proof}
+
+\begin{exercise}
+  Find the least positive solution
+  $x$ to the congruence
+  $x \equiv 38^{110} \Pmod{21}$.
+\end{exercise}
+
+\begin{proof}
+  First we compute that
+  $\varphi(21) = \varphi(7) \varphi(3) = 6 \cdot 2 = 12$.
+  By Euler's theorem,
+  \begin{align*}
+    x \equiv 38^{110}
+    \equiv 17^{110}
+    \equiv 17{9 \cdot 12 + 2}
+    \equiv (17^{12})^9 \cdot 17^2
+    \equiv 17^2 \pmod{21}.
+  \end{align*}
+  Now we notice that
+  $17^2 \equiv (-4)^2 \equiv 16 \Pmod{21}$, so
+  we can take $x = 16$.
+\end{proof}
+
+\begin{exercise}
+  Let $a, m \in \Z$ and $m > 1$.
+  If $(a, m) = 1$, show that
+  $a^{\varphi(m) - 1}$ is the multiplicative
+  inverse of $a$ modulo $m$.
+\end{exercise}
+
+\begin{proof}
+  By Euler's theorem,
+  $a \cdot a^{\varphi(m) - 1} = a^{\varphi(m)} \equiv 1 \Pmod{m}$,
+  so $\overline{a} \equiv a^{\varphi(m) - 1} \Pmod{m}$.
+\end{proof}
+
+\begin{exercise}
+  Prove that for odd primes $p$, we
+  have $2(p - 3)! \equiv -1 \Pmod{p}$.
+\end{exercise}
+
+\begin{proof}
+  By Wilson's theorem, 
+  $(p - 1)! \equiv -1 \Pmod{p}$. Then we
+  have
+  \[
+    (p - 3)! (p - 2)(p - 1)
+    \equiv -1 \Pmod{p},
+  \]
+  so $2(p - 3)! \equiv -1 \Pmod{p}$ since
+  $(p - 2)(p - 1) \equiv 2 \Pmod{p}$.
+\end{proof}
+
+\begin{exercise}
+  Find integers $a, b$ such that
+  $(a, b) = 3$ and $a + b = 66$.
+\end{exercise}
+
+\begin{proof}
+  It suffices to write
+  $a = 3a_1$, $b = 3b_1$, where
+  $(a_1, b_1) = 1$. One way to do this
+  is $(a_1, b_1) = (1, 21)$:
+  \[
+    3(a_1 + b_1) = 3(1 + 21)
+    = 3 \cdot 22 = 66.
+  \]
+  Thus we may take
+  $a = 3$, $b = 63$.
+\end{proof}
+
+\begin{remark}
+  Recall that a \emph{reduced} 
+  residue system modulo $m$
+  is a set $\{r_1, \dots, r_{\varphi(m)}\}$
+  of integers coprime to $m$ and
+  pairwise incongruent modulo $m$.
+  Note that the $r_i$ themselves need
+  not be coprime, in fact they may
+  share arbitrarily large common factors:
+  Take any $r_\ell \ne 1$ and consider
+  \[
+    \{r_\ell r_1, \dots, r_{\ell} r_{\varphi(m)}\}.
+  \]
+  By repeating this, we can get
+  arbitrarily large powers of $r_\ell$
+  as a common factor.
+\end{remark}
