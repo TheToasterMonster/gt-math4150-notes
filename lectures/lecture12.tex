@@ -1,0 +1,300 @@
+\chapter{Oct.~1 --- Quadratic Residues}
+
+\begin{quote}
+  \emph{What do you call a bear with no
+  ear? A bee.}
+
+  \emph{What do you call a magician
+  who loses his magic? Ian.}
+\end{quote}
+
+\section{M\"obius Inversion}
+
+\begin{theorem}[M\"obius inversion]
+  Let $f, g$ be arithmetic functions.
+  Then
+  \[
+    f(n) = \sum_{d \mid n} g(d)
+    \quad \text{if and only if} \quad
+    g(n) = \sum_{d \mid n} \mu(d) f(n / d)
+    = \sum_{d \mid n} \mu(n / d) f(d).
+  \]
+\end{theorem}
+
+\begin{proof}
+  $(\Rightarrow)$ Assume
+  $f(n) = \sum_{d \mid n} g(d)$.
+  Then we can write
+  \[
+    \sum_{d \mid n} \mu(d) f(n / d)
+    = \sum_{d \mid n} \mu(d)
+    \sum_{a \mid (n / d)} g(a).
+  \]
+  Note that $a \mid (n / d)$ if and only
+  if $d \mid (n / a)$, so we can
+  switch the order of summation to get
+  \[
+    \sum_{d \mid n} \mu(d) f(n / d)
+    = \sum_{a \mid n} g(a)
+    \sum_{d \mid (n / a)} \mu(d)
+    = \sum_{a \mid n} g(a)
+    \begin{cases}
+      1 & \text{if } n = a \\
+      0 & \text{otherwise}
+    \end{cases}
+    = g(n),
+  \]
+  where the second equality is by
+  by Proposition \ref{prop:mobius-sum}.
+  This proves the forward direction.
+
+  $(\Leftarrow)$ Assume
+  that $g(n) = \sum_{d \mid n} \mu(n / d) f(d)$.
+  Then we have
+  \[
+    \sum_{d \mid n} g(d)
+    = \sum_{d \mid n} \sum_{a \mid d}
+    \mu(d / a) f(a)
+    = \sum_{a \mid n} f(a)
+    \sum_{\substack{d \mid n \\ a \mid d}} \mu(d / a)
+    = \sum_{a \mid n} f(a)
+    \sum_{b \mid (n / a)} \mu(b)
+  \]
+  where we let
+  $d = ab$ and noted that
+  $ab \mid n$ if and only $ab \mid n$
+  if and only if $b \mid (n / a)$.
+  Then
+  \[
+    \sum_{d \mid n} g(d)
+    = \sum_{a \mid n} f(a)
+    \begin{cases}
+      1 & \text{if } n = a \\
+      0 & \text{otherwise}
+    \end{cases}
+    = f(n)
+  \]
+  by Proposition \ref{prop:mobius-sum},
+  which proves the reverse direction.
+\end{proof}
+
+\begin{example}
+  Recall that $\sum_{d \mid n} \varphi(d) = n$ by
+  Theorem \ref{thm:euler-phi-sum}.
+  By M\"obius inversion,
+  \[
+    \varphi(n)
+    = \sum_{d \mid n} \mu(d) \frac{n}{d}
+    = n \sum_{d \mid n} \frac{\mu(d)}{d}
+    = n \prod_{p^a \mid n} \sum_{d \mid p^a} \frac{\mu(d)}{d}
+    = n \prod_{p \mid n} \left(1 - \frac{1}{p}\right),
+  \]
+  where $\mu(d) / d$ is multiplicative
+  since $\mu(d)$ and $1 / d$ both are.
+  This recovers the product formula
+  for $\varphi$.
+\end{example}
+
+\begin{example}
+  We have $\tau(n) = \sum_{d \mid n} 1$.
+  So by M\"obius inversion,
+  \[
+    1 = \sum_{d \mid n} \tau(n / d) \mu(d).
+  \]
+\end{example}
+
+\begin{example}
+  We have $\sigma(n) = \sum_{d \mid n} d$.
+  So by M\"obius inversion,
+  \[
+    n = \sum_{d \mid n} \mu(d) \sigma(n / d).
+  \]
+\end{example}
+
+\section{Quadratic Residues}
+
+\begin{remark}
+  So far, we have only studied
+  linear congruences, which take
+  the form $ax \equiv b \Pmod{m}$.
+  Now we will be interested in
+  \emph{quadratic} congruences, i.e.
+  congruences of the form
+  $ax^2 + bx \equiv c \Pmod{m}$.
+  We will primarily restrict to the
+  case $x^2 \equiv a \Pmod{p}$
+  for $p$ an odd prime (the question
+  is easy for $p = 2$).
+\end{remark}
+
+\begin{definition}
+  Let $a, m \in \Z$, $m > 0$, and
+  $(a, m) = 1$. Then $a$ is
+  a \emph{quadratic residue modulo $m$}
+  if the congruence
+  $x^2 \equiv a \Pmod{m}$ has a
+  solution. Otherwise, $a$ is a
+  \emph{quadratic non-residue modulo $m$}.
+\end{definition}
+
+\begin{example}
+  The quadratic residues modulo $11$
+  are
+  \[
+    \{
+      1^2, 2^2, 3^2, 4^2, 5^2, 6^2, 7^2, 8^2, 9^2, 10^2
+    \}
+    \equiv \{1, 4, 9, 5, 3, 3, 5, 9, 4, 1\}
+    \equiv \{1, 3, 4, 5, 9\} 
+    \pmod{11}.
+  \]
+  The quadratic non-residues are
+  $\{2, 6, 7, 8, 10\}$. Note that
+  the sizes of these sets are the same.
+\end{example}
+
+\begin{prop}
+  Let $p$ be an odd prime and
+  $a \in \Z$, $p \nmid a$.
+  Then $x^2 \equiv a \Pmod{p}$ has
+  either $0$ or $2$ incongruent
+  solutions modulo $p$.
+\end{prop}
+
+\begin{proof}
+  Assume $x^2 \equiv a \Pmod{p}$ has
+  a solution $x_0$. Then
+  $-x_0$ is also a solution. It
+  is also incongruent to $p$, since
+  if $x_0 \equiv -x_0 \Pmod{p}$,
+  then $2x_0 \equiv 0 \Pmod{p}$,
+  which implies $p \mid 2 x_0$.
+  Since $p$ is odd, we must have
+  $p \mid x_0$, so
+  $x_0 \equiv 0 \Pmod{p}$. But then
+  $a \equiv x_0^2 \equiv 0 \Pmod{p}$,
+  a contradiction.
+  Thus $x^2 \equiv a \Pmod{p}$ has at least
+  two incongruent solutions modulo
+  $p$ if it has a solution at all.
+  
+  We now show $x^2 \equiv a \Pmod{p}$
+  has at most $2$ incongruent solutions.
+  Suppose $x_0, x_1$ are
+  solutions. Then
+  \[
+    x_0^2 \equiv x_1^2 \equiv a \pmod{p}.
+  \]
+  Then $x_0^2 - x_1^2 \equiv 0 \Pmod{p}$,
+  so $p \mid x_0^2 - x_1^2 = (x_0 - x_1)(x_0 + x_1)$.
+  Thus $p \mid x_0 - x_1$ or
+  $p \mid x_0 + x_1$. In the first
+  case, $x_0 \equiv x_1 \Pmod{p}$,
+  and in the second case,
+  $x_0 \equiv -x_1 \Pmod{p}$. So any
+  solution is congruent to either
+  $x_0$ or $-x_0$, which means
+  that $x^2 \equiv a \Pmod{p}$
+  has at most $2$ incongruent
+  solutions.
+\end{proof}
+
+\begin{corollary}
+  Let $p$ be an odd prime and
+  $a \in \Z$, $p \nmid a$.
+  If $x^2 \equiv a \Pmod{p}$ is
+  solvable with $x = x_0$, then
+  the two solutions are given by
+  $x_0$ and $p - x_0$.
+\end{corollary}
+
+\begin{prop}\label{prop:quadratic-residues-count}
+  Let $p$ be an odd prime. Then there
+  are exactly $(p - 1) / 2$ quadratic
+  residues and $(p - 1) / 2$ quadratic
+  non-residues modulo $p$.
+\end{prop}
+
+\begin{proof}
+  For each $1 \le x \le p - 1$, if
+  $x^2 \equiv a \Pmod{p}$, then
+  $(p - x)^2 \equiv a \Pmod{p}$ as well,
+  and these are the only two such
+  residues which square to $a$.
+  That is, for each pair
+  \[
+    (1, p - 1), \quad (2, p - 2), \quad
+    \dots, \quad (i, p - i)
+  \]
+  for $1 \le i \le (p - 1) / 2$,
+  we get a unique quadratic residue,
+  namely $i^2$. Since there are
+  $(p - 1) / 2$ pairs of residues
+  modulo $p$ formed in this way,
+  there are exactly $(p - 1) / 2$
+  quadratic residues modulo $p$.
+  These are given by
+  $1^2, 2^2, \dots, ((p - 1) / 2)^2$.
+  The remaining $(p - 1) / 2$
+  elements are quadratic
+  non-residues.
+\end{proof}
+
+\section{The Legendre Symbol}
+
+\begin{definition}
+  Let $p$ be an odd prime and
+  $a \in \Z$, $p \nmid a$. The
+  \emph{Legendre symbol} is
+  \[
+    \left(\frac{a}{p}\right)
+    =
+    \begin{cases}
+      1 & \text{if $a$ is a quadratic residue modulo $p$,} \\
+      -1 & \text{if $a$ is a quadratic non-residue modulo $p$.}
+    \end{cases}
+  \]
+\end{definition}
+
+\begin{example}
+  Recall that $1, 3, 4, 5, 9$ are
+  quadratic residues modulo $11$, so
+  \[
+    \left(\frac{1}{11}\right)
+    = \left(\frac{3}{11}\right)
+    = \left(\frac{4}{11}\right)
+    = \left(\frac{5}{11}\right)
+    = \left(\frac{9}{11}\right)
+    = 1.
+  \]
+  The quadratic non-residues modulo
+  $11$ were $2, 6, 7, 8, 10$, so
+  \[
+    \left(\frac{2}{11}\right)
+    = \left(\frac{6}{11}\right)
+    = \left(\frac{7}{11}\right)
+    = \left(\frac{8}{11}\right)
+    = \left(\frac{10}{11}\right)
+    = -1.
+  \]
+\end{example}
+
+\begin{example}
+  Evaluate $\left(\frac{3}{7}\right)$.
+  This asks whether $3$ is a quadratic
+  residue modulo $7$. That is, whether
+  there is a solution to the
+  quadratic congruence
+  $x^2 \equiv 3 \Pmod{7}$. One can check
+  that
+  \[
+    \{
+      1^2, 2^2, 3^2
+    \}
+    \equiv \{1, 4, 2\} \pmod{7},
+  \]
+  and these are all of the quadratic
+  residues by Proposition
+  \ref{prop:quadratic-residues-count}.
+  Thus $\left(\frac{3}{7}\right) = -1$.
+\end{example}
