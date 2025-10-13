@@ -1,0 +1,313 @@
+\chapter{Oct.~13 --- Quadratic Reciprocity}
+
+\begin{quote}
+  \begin{emph}
+    Why did the man bring his watch to the
+    bank? He wanted to save time.
+  \end{emph}
+\end{quote}
+
+\section{Applications of Gauss's Lemma}
+
+\begin{exercise}
+  Calculate the following:
+  \[
+    \left(\frac{-1}{13}\right), \quad
+    \left(\frac{2}{17}\right), \quad
+    \left(\frac{-14}{11}\right), \quad
+    \left(\frac{18}{23}\right).
+  \]
+  For the first, since
+  $13 \equiv 1 \Pmod{4}$, we have
+  $\big(\frac{-1}{13}\big) = 1$.
+  For the second, we compute
+  \[
+    \{2, 2(2), 3(2), 4(2), 5(2), 6(2), 7(2), 8(2)\}
+    \equiv \{2, 4, 6, 8, 10, 12, 14, 16\}
+    \pmod{17}.
+  \]
+  Four of these residues are
+  greater that $17 / 2 = 8.5$, so
+  $\big(\frac{2}{17}\big) = (-1)^4 = 1$.
+  For the third, write
+  \[
+    \left(\frac{-14}{11}\right)
+    = \left(\frac{-1}{11}\right)
+    \left(\frac{14}{11}\right)
+    = \left(\frac{-1}{11}\right)
+    \left(\frac{3}{11}\right)
+    = -\left(\frac{3}{11}\right)
+  \]
+  since $11 \equiv 3 \Pmod{4}$.
+  To compute $\big(\frac{3}{11}\big)$,
+  we list
+  \[
+    \{3, 2(3), 3(3), 4(3), 5(3)\}
+    \equiv \{3, 6, 9, 1, 4\}
+    \pmod{11}.
+  \]
+  Two of the above are greater than $11 / 2 = 5.5$,
+  so $\big(\frac{3}{11}\big) = (-1)^2 = 1$.
+  Thus $\big(\frac{-14}{11}\big) = -1$.
+  For the last,
+  \[
+    \left(\frac{18}{23}\right)
+    = \left(\frac{2}{23}\right)
+    \left(\frac{9}{23}\right)
+    = \left(\frac{2}{23}\right),
+  \]
+  which we can compute by enumerating
+  \begin{align*}
+    &\{2, 2(2), 3(2), 4(2), 5(2), 6(2), 7(2), 8(2), 9(2), 10(2), 11(2)\} \\
+    &\quad \quad \equiv \{2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22\}
+    \pmod{23}.
+  \end{align*}
+  Six of the above are greater than
+  $23 / 2 = 11.5$, so
+  $\big(\frac{18}{23}\big) = \big(\frac{2}{23}\big) = (-1)^6 = 1$.
+\end{exercise}
+
+\begin{theorem}
+  Let $p$ be an odd prime. Then
+  \[
+    \left(\frac{2}{p}\right)
+    = (-1)^{(p^2 - 1) / 8}
+    =
+    \begin{cases}
+      1 & \text{if } p \equiv 1, 7 \Pmod{8}, \\
+      -1 & \text{if } p \equiv 3, 5 \Pmod{8}.
+    \end{cases}
+  \]
+\end{theorem}
+
+\begin{proof}
+  By Gauss's lemma, we have
+  $\big(\frac{2}{p}\big) = (-1)^n$,
+  where $n$ is the number of least positive
+  residues of
+  \[
+    2, \quad 2(2), \quad 3(2), \quad 4(2), \quad \dots, \quad
+    \left(\frac{p - 1}{2}\right) 2.
+  \]
+  Let $k \in \Z$ with $1 \le k \le (p - 1) / 2$.
+  Note that $2k < p / 2$ if and only if
+  $k < p / 4$ (we always have $2k < p$),
+  so there are $\lfloor p / 4 \rfloor$
+  values of $k$ for which $2k < p / 2$.
+  Thus, there are $(p - 1) / 2 - \lfloor p / 4 \rfloor$
+  values of $k$ for which
+  $2k > p / 2$ (recall that $p$ is odd),
+  so $n = (p - 1) / 2 - \lfloor p / 4 \rfloor$.
+  To show that $(p^2 - 1) / 8$
+  and $(p - 1) / 2 - \lfloor p / 4 \rfloor$
+  always have the same parity, we can
+  just check the four cases:
+  \begin{itemize}
+    \item $p \equiv 1 \Pmod{8}$.
+      Then $p = 8m + 1$ for some $m \in \Z$.
+      Then
+      \[
+        n = \frac{p - 1}{2} - \left\lfloor \frac{p}{4} \right\rfloor
+        = \frac{8m + 1 - 1}{2} - \left\lfloor \frac{8m + 1}{4} \right\rfloor
+        = 4m - 2m = 2m.
+      \]
+      Note that this is even.
+      On the other hand, we can check that
+      \[
+        \frac{p^2 - 1}{8}
+        = \frac{(8m + 1)^2 - 1}{8}
+        = 8m^2 + 2m.
+      \]
+      This is also even, so
+      the parity matches in this case.
+    \item Check the cases
+      $p \equiv 3, 5, 7 \Pmod{8}$ similarly
+      as an exercise.
+  \end{itemize}
+  Since $(p^2 - 1) / 8$ and $n$ agree
+  modulo $2$, we have
+  $(-1)^{(p^2 - 1) / 8} = (-1)^n = \big(\frac{2}{p}\big)$.
+\end{proof}
+
+\begin{example}
+  We have $\big(\frac{2}{23}\big) = 1$
+  since $23 \equiv 7 \Pmod{8}$.
+\end{example}
+
+\section{Quadratic Reciprocity}
+
+\begin{remark}
+  We will now try to understand
+  $\big(\frac{q}{p}\big)$ for distinct
+  odd primes $p, q$.
+\end{remark}
+
+\begin{theorem}[Law of quadratic reciprocity]
+  Let $p, q$ be distinct odd primes. Then
+  \[
+    \left(\frac{p}{q}\right)
+    \left(\frac{q}{p}\right)
+    = (-1)^{(p - 1)(q - 1) / 4}
+    =
+    \begin{cases}
+      1 & \text{if } p \equiv 1 \text{ or } q \equiv 1 \Pmod{4}, \\
+      -1 & \text{if } p \equiv q \equiv 3 \Pmod{4}.
+    \end{cases}
+  \]
+\end{theorem}
+
+\begin{remark}
+  Quadratic reciprocity allows us to
+  simplify the calculation for
+  $\big(\frac{p}{q}\big)$.
+  For example, consider
+  \begin{quote}
+    Which primes are quadratic residues modulo
+    $17$, i.e. evaluate $\big(\frac{p}{17}\big)$?
+  \end{quote}
+  This is a finite problem: We may just
+  compute all squares modulo $17$.
+  Now consider
+  \begin{quote}
+    For which primes $p$ is $17$ a
+    quadratic residue, i.e. evaluate
+    $\big(\frac{17}{p}\big)$?
+  \end{quote}
+  This is a priori an infinite problem,
+  but we can convert it to the previous one
+  by quadratic reciprocity.
+\end{remark}
+
+\begin{example}
+  Compute $\big(\frac{7}{53}\big)$.
+  We use quadratic reciprocity:
+  $7 \equiv 3 \Pmod{4}$ and
+  $53 \equiv 1 \Pmod{4}$, so
+  \[
+    \left(\frac{7}{53}\right)
+    =
+    \left(\frac{53}{7}\right)
+    =
+    \left(\frac{4}{7}\right)
+    = 1
+  \]
+  since $4$ is always a square modulo any
+  prime.
+\end{example}
+
+\begin{example}
+  Calculate $\big(\frac{-158}{101}\big)$.
+  We can first write
+  \[
+    \left(\frac{-158}{101}\right)
+    = \left(\frac{-1}{101}\right)
+    \left(\frac{158}{101}\right)
+    = \left(\frac{158}{101}\right)
+    = \left(\frac{57}{101}\right)
+    = \left(\frac{3}{101}\right)
+    \left(\frac{19}{101}\right)
+  \]
+  since $101 \equiv 1 \Pmod{4}$,
+  $158 \equiv 57 \Pmod{101}$, and
+  $57 = 3 \cdot 19$. We can now
+  apply quadratic reciprocity (note that
+  we could not have done this earlier,
+  since $158, 57$ are not prime):
+  \[
+    \left(\frac{-158}{101}\right)
+    = \left(\frac{101}{3}\right)
+    \left(\frac{101}{19}\right)
+    = \left(\frac{2}{3}\right)
+    \left(\frac{6}{19}\right)
+    = \left(\frac{2}{3}\right)\left(\frac{25}{19}\right)
+    = -1 \cdot 1 = 1.
+  \]
+\end{example}
+
+\begin{lemma}\label{lem:qr-lemma}
+  Let $p$ be an odd prime number and
+  let $a \in \Z$, $p \nmid a$, $a$ odd.
+  Let
+  \[
+    N = \sum_{j = 1}^{(p - 1) / 2}
+    \left\lfloor \frac{ja}{p} \right\rfloor.
+  \]
+  Then $\big(\frac{a}{p}\big) = (-1)^N$.
+\end{lemma}
+
+\begin{proof}
+  Let $r_1, r_2, \dots, r_n$ be the least
+  non-negative residues among
+  $a, 2a, \dots, ((p - 1) / 2) a$
+  that are $> p / 2$. Likewise, let
+  $s_1, \dots, s_m$ be the remaining
+  residues that are $< p / 2$. Note that
+  \[
+    r_1, \dots, r_n, s_1, \dots, s_m
+  \]
+  are all distinct modulo $p$ (they come
+  from $a, 2a, 3a, \dots , ((p - 1) / 2)a$,
+  which are distinct since $p \nmid a$).
+  This means that the fractions
+  $r_i / p$, $s_j / p$  are also all
+  distinct. Then
+  \[
+    ja
+    = p \cdot \frac{ja}{p}
+    = p \left(\left\lfloor \frac{ja}{p} \right\rfloor + \frac{\text{remainder}}{p}\right)
+    = p \left\lfloor \frac{ja}{p} \right\rfloor + \text{remainder depending on $j$},
+  \]
+  where the remainders are exactly the
+  numbers $r_1, \dots, r_n, s_1, \dots, s_m$.
+  Then
+  \[
+    \sum_{j = 1}^{(p - 1) / 2} ja
+    = \sum_{j = 1}^{(p - 1) / 2}
+    p \left\lfloor \frac{ja}{p} \right\rfloor
+    + \sum_{i = 1}^n r_i + \sum_{j = 1}^m s_j.
+    \tag{$1$}
+  \]
+  Note also that
+  \[
+    \sum_{j = 1}^{(p - 1) / 2} j
+    = \sum_{i = 1}^n (p - r_i) + \sum_{j = 1}^m s_j
+    = pn - \sum_{i = 1}^n r_i + \sum_{j = 1}^m s_j.
+    \tag{$2$}
+  \]
+  Subtracting $(2)$ from $(1)$ gives the
+  equation
+  \[
+    \sum_{j = 1}^{(p - 1) / 2} j(a - 1)
+    = \sum_{j = 1}^{(p - 1) / 2}
+    p \left\lfloor \frac{ja}{p} \right\rfloor
+    - pn + 2\sum_{i = 1}^n r_i.
+  \]
+  Taking the above equation modulo $2$,
+  since $a$ is odd, we get
+  \[
+    \sum_{j = 1}^{(p - 1) / 2} p \left\lfloor \frac{ja}{p} \right\rfloor
+    - pn \equiv 0 \Pmod{2},
+  \]
+  so $pN \equiv pn \Pmod{2}$,
+  so $N \equiv n \Pmod{2}$
+  since $2 \nmid p$.
+  So $(-1)^N = (-1)^n = \big(\frac{a}{p}\big)$
+  by Gauss's lemma.
+\end{proof}
+
+\begin{example}
+  We compute $\big(\frac{7}{11}\big)$
+  using Lemma \ref{lem:qr-lemma}.
+  We calculate
+  \[
+    N = \sum_{j = 1}^5 \left\lfloor \frac{7j}{11} \right\rfloor
+    = \left\lfloor \frac{7}{11} \right\rfloor
+    + \left\lfloor \frac{14}{11} \right\rfloor
+    + \left\lfloor \frac{21}{11} \right\rfloor
+    + \left\lfloor \frac{28}{11} \right\rfloor
+    + \left\lfloor \frac{35}{11} \right\rfloor
+    = 0 + 1 + 1 + 2 + 3 = 7,
+  \]
+  so $\big(\frac{7}{11}\big) = (-1)^7 = -1$
+  by Lemma \ref{lem:qr-lemma}.
+\end{example}
