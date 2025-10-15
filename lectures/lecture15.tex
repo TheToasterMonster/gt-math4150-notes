@@ -1,0 +1,209 @@
+\chapter{Oct.~15 --- Quadratic Reciprocity, Part 2}
+
+\begin{quote}
+  \emph{What do you call a place in America that receives shipments of pollinators? A U.S. bee port.}
+\end{quote}
+
+\section{Proof of Quadratic Reciprocity}
+
+\begin{proof}[Proof of Theorem \ref{thm:quadratic-reciprocity}]
+  Without loss of generality, assume
+  $p > q$.
+  Consider a $q \times p$ grid on $\R^2$.
+  Let $L$ be the line from
+  $(0, 0)$ to $N = (q, p)$. Let
+  $A = ((p - 1) / 2, 0)$,
+  $B = (0, (q - 1) / 2)$. Let
+  $M$ be the intersection of
+  $L$ with the line
+  $x = (p - 1) / 2$ and $D$ be the
+  intersection of $L$ 
+  with the line $y = (q - 1) / 2$.
+  Also let $C = ((p - 1) / 2, (q - 1) / 2)$.
+  We count the number of lattice points in
+  the rectangle $OABC$, not including the
+  axes.
+  This number is clearly
+  $(p - 1)(q - 1) / 4$. Now observe that:
+  \begin{enumerate}
+    \item The line $ON$ has slope
+      $q / p$. In particular, $ON$
+      contains no lattice points.
+    \item The $y$-coordinate of $M$ is
+      $((p - 1) / 2) (q / p) = q / 2 - q / 2p$.
+      This lies between the consecutive
+      integers
+      $(q - 1) / 2$ and $(q + 1) / 2$:
+      \[
+        \frac{q - 1}{2} = \frac{q}{2} - \frac{1}{2}
+        < \frac{q}{2} - \frac{q}{2p}
+        < \frac{q}{2} < \frac{q + 1}{2}.
+      \]
+  \end{enumerate}
+  So the number of lattice points
+  in $OABC$ excluding the axes, and
+  below the line $ON$ is
+  \[
+    N_1 = \sum_{j = 1}^{(p - 1) / 2}
+    \left\lfloor \frac{jq}{p} \right\rfloor.
+  \]
+  Likewise, the number of lattice points
+  above the line $ON$ is
+  \[
+    N_2 = \sum_{j = 1}^{(q - 1) / 2} \left\lfloor \frac{jp}{q} \right\rfloor.
+  \]
+  Thus the total number of lattice points
+  in question is
+  $N_1 + N_2 = (p - 1)(q - 1) / 4$. Then
+  \[
+    \left(\frac{p}{q}\right)
+    \left(\frac{q}{p}\right)
+    = (-1)^{N_2} (-1)^{N_1}
+    = (-1)^{N_1 + N_2}
+    = (-1)^{(p - 1)(q - 1) / 4}
+  \]
+  by Lemma \ref{lem:qr-lemma}, which
+  proves the claim.
+\end{proof}
+
+\section{Applications of Quadratic Reciprocity}
+
+\begin{remark}
+  Note that we have characterized the
+  primes for which $-1$ and $2$ are
+  quadratic residues.
+\end{remark}
+
+\pagebreak
+\begin{example}
+  For what primes $p$ is
+  $3$ a quadratic residue?
+  It suffices to compute when $\big(\frac{3}{p}\big) = 1$.
+  By quadratic reciprocity, we have
+  \[
+    \left(\frac{3}{p}\right)
+    =
+    \begin{cases}
+      \big(\frac{p}{3}\big) & p \equiv 1 \Pmod{4},\\
+      -\big(\frac{p}{3}\big) & p \equiv 3 \Pmod{4}.
+    \end{cases}
+  \]
+  Note that the only (non-zero) quadratic
+  residue modulo $3$ is $1$.
+  If $p \equiv 1 \Pmod{4}$, then
+  $\big(\frac{p}{3}\big) = 1$
+  if and only if $p \equiv 1 \Pmod{3}$.
+  If $p \equiv 3 \Pmod{4}$,
+  then $\big(\frac{p}{3}\big) = -1$
+  if and only if $p \equiv 2 \Pmod{3}$.
+  By the Chinese remainder theorem,
+  we can rewrite the first condition
+  as $p \equiv 1 \Pmod{12}$ and the
+  second condition as
+  $p \equiv -1 \Pmod{12}$. Thus
+  we see that $\big(\frac{3}{p}\big) = 1$
+  if and only if
+  $p \equiv \pm 1 \Pmod{12}$.
+\end{example}
+
+\begin{example}
+  Characterize the primes $p$ for
+  which both $2$ and $3$ are
+  quadratic residues modulo $p$.
+  We want $p$ such that
+  $\big(\frac{2}{p}\big) = \big(\frac{3}{p}\big) = 1$.
+  We already know that
+  $\big(\frac{2}{p}\big) = 1$
+  if and only if $p \equiv \pm 1 \Pmod{8}$
+  and $\big(\frac{3}{p}\big) = 1$
+  if and only if $p \equiv \pm 1 \Pmod{12}$.
+  So by the Chinese remainder theorem,
+  we have
+  $\big(\frac{2}{p}\big) = \big(\frac{3}{p}\big) = 1$
+  if and only if
+  $p \equiv \pm 1 \Pmod{24}$.
+\end{example}
+
+\begin{example}
+  Characterize the primes $p$ for which
+  $13$ is a quadratic residue modulo $p$.
+  By quadratic reciprocity,
+  we have
+  $\big(\frac{13}{p}\big) = \big(\frac{p}{13}\big)$.
+  The non-zero
+  quadratic residues modulo $13$ are
+  \[
+    \{1, 3, 4, 9, 10, 12\},
+  \]
+  So $\big(\frac{13}{p}\big) = \big(\frac{p}{13}\big) = 1$
+  if and only if
+  $p \equiv 1, 3, 4, 9, 10, 12 \equiv \pm 1, \pm 3, \pm 4 \Pmod{13}$.
+\end{example}
+
+\begin{example}
+  Characterize the primes $p$ for
+  which $11$ is a quadratic residue
+  modulo $p$. By quadratic reciprocity,
+  we have that
+  \[
+    \left(\frac{11}{p}\right)
+    =
+    \begin{cases}
+      \big(\frac{p}{11}\big) & p \equiv 1 \Pmod{4},\\
+      -\big(\frac{p}{11}\big) & p \equiv 3 \Pmod{4}.
+    \end{cases}
+  \]
+  The quadratic residues modulo $11$ are
+  $1, 3, 4, 5, 9$, and the
+  quadratic non-residues are
+  $2, 6, 7, 8, 10$. If
+  $p \equiv 1 \Pmod{4}$, then
+  $\big(\frac{p}{11}\big) = 1$
+  if and only if $p \equiv 1, 3, 4, 5, 9 \Pmod{11}$,
+  and if $p \equiv 3 \Pmod{4}$, then
+  $\big(\frac{p}{11}\big) = -1$
+  if and only if
+  $p \equiv 2, 6, 7, 8, 10 \Pmod{11}$.
+  One can check each of these
+  cases by the Chinese
+  remainder theorem, and one gets
+  $\big(\frac{11}{p}\big) = 1$
+  if and only if
+  $p \equiv 1, 5, 7, 9, 19, 25, 35, 37, 39, 43 \Pmod{44}$, or
+  \[
+    p \equiv \pm 1, \pm 5, \pm 7, \pm 9, \pm 19 \pmod{44}.
+  \]
+\end{example}
+
+\begin{example}
+  Characterize the primes $p$ for which
+  $-1$ and $2$ are both quadratic
+  residues modulo $p$. Recall that
+  $\big(\frac{-1}{p}\big) = 1$
+  if and only if $p \equiv 1 \Pmod{4}$
+  and $\big(\frac{2}{p}\big) = 1$
+  if and only if $p \equiv \pm 1 \Pmod{8}$,
+  so we see that
+  $\big(\frac{-1}{p}\big) = \big(\frac{2}{p}\big) = 1$
+  if and only if $p \equiv 1 \Pmod{8}$.
+\end{example}
+
+\begin{example}
+  Characterize the primes $p$ for which
+  both $-1$ and $3$ are quadratic
+  residues modulo $p$.
+  Recall that $\big(\frac{-1}{p}\big) = 1$
+  if and only if $p \equiv 1 \Pmod{4}$
+  and $\big(\frac{3}{p}\big) = 1$
+  if and only if
+  $p \equiv \pm 1 \Pmod{12}$.
+  So we have
+  $\big(\frac{-1}{p}\big) = \big(\frac{3}{p}\big) = 1$
+  if and only if $p \equiv 1 \Pmod{12}$.
+\end{example}
+
+\begin{exercise}
+  Characterize the primes $p$ for which
+  $3$ and $5$ are quadratic residues
+  modulo $p$.
+\end{exercise}
