@@ -1,0 +1,275 @@
+\chapter{Oct.~20 --- Primitive Roots}
+
+\begin{quote}
+  \emph{
+  What happens when you step on a grape?
+Nothing, it lets out a little whine.}
+\end{quote}
+
+\section{Orders}
+
+\begin{remark}
+  Let $m$ be a positive integer and
+  $(a, m) = 1$. By Euler's theorem, we know
+  that
+  \[
+    a^{\varphi(m)} \equiv 1 \pmod{m}.
+  \]
+  However, it may happen that
+  $a^g \equiv 1 \pmod{m}$ for some smaller
+  $g$.
+\end{remark}
+
+\begin{definition}
+  Let $a, m \in \Z$ with $m > 0$,
+  $(a, m) = 1$. Then the \emph{order of $a$ modulo $m$},
+  denoted $\ord_m a$, is the least
+  positive integer $n$ such that
+  $a^n \equiv 1 \pmod{m}$.
+\end{definition}
+
+\begin{example}
+  We compute $\ord_7 2$. We can compute that
+  \begin{align*}
+    2^1 &\equiv 2 \pmod{7},\\
+    2^2 &\equiv 4 \pmod{7},\\
+    2^3 &\equiv 1 \pmod{7},
+  \end{align*}
+  so we see that $\ord_7 2 = 3$. Note
+  that Euler's theorem only guarantees
+  $\ord_7 2 \le \phi(7) = 6$.
+\end{example}
+
+\begin{example}\label{ex:order-7-3}
+  We compute $\ord_7 3$. We can compute
+  that
+  \begin{align*}
+    3^1 &\equiv 3 \pmod{7},\\
+    3^2 &\equiv 2 \pmod{7},\\
+    3^3 &\equiv 6 \pmod{7},\\
+    3^4 &\equiv 4 \pmod{7},\\
+    3^5 &\equiv 5 \pmod{7},\\
+    3^6 &\equiv 1 \pmod{7},
+  \end{align*}
+  so we see that $\ord_7 3 = 6$.
+\end{example}
+
+\begin{prop}\label{prop:order-divides}
+  Let $a, m \in \Z$ with $m > 0$ and
+  $(a, m) = 1$. Then $a^n \equiv 1 \Pmod{m}$
+  for some positive integer $n$ if and only
+  if $\ord_m a \mid n$. In particular,
+  $\ord_m a \mid \varphi(m)$.
+\end{prop}
+
+\begin{proof}
+  $(\Rightarrow)$ Suppose that
+  $a^n \equiv 1 \Pmod{m}$. By the
+  division algorithm, there exists
+  $q, r \in \Z$ such that
+  \[
+    n = q (\ord_m a) + r, \quad
+    0 \le r < \ord_m a.
+  \]
+  Then $1 = a^n \equiv a^{q (\ord_m a) + r} \equiv (a^{\ord_m a})^q a^r \equiv a^r \Pmod{m}$,
+  which can only happen if $r = 0$
+  by the definition of $\ord_m a$
+  and $0 \le r < \ord_m a$. Therefore,
+  $\ord_m a \mid n$.
+
+  $(\Leftarrow)$ Suppose that
+  $\ord_m a \mid n$. Then $n = q (\ord_m a)$,
+  so $a^n = a^{q (\ord_m a)} \equiv (a^{\ord_m a})^q \equiv 1 \Pmod{m}$.
+\end{proof}
+
+\begin{example}
+  We compute $\ord_{13} 2$.
+  By Proposition \ref{prop:order-divides},
+  it suffices to check divisors
+  of $\varphi(13) = 12$:
+  \begin{align*}
+    2^1 &\equiv 2 \pmod{13},\\
+    2^2 &\equiv 4 \pmod{13},\\
+    2^3 &\equiv 8 \pmod{13},\\
+    2^4 &\equiv 3 \pmod{13},\\
+    2^6 &\equiv 12 \pmod{13},\\
+    2^{12} &\equiv 1 \pmod{13},
+  \end{align*}
+  thus $\ord_{13} 2 = 12$. Note that we
+  did not need to compute $2^7$, $2^8$, etc.
+  to verify this.
+\end{example}
+
+\begin{prop}\label{prop:order-congruence}
+  Let $a, m \in \Z$ with $m > 0$ and
+  $(a, m) = 1$. If $i, j$ are
+  non-negative integers, then
+  $a^i \equiv a^j \Pmod{m}$ if and only
+  if $i \equiv j \Pmod{{\ord_m a}}$.
+\end{prop}
+
+\begin{proof}
+  Without loss of generality, suppose
+  $i \ge j$.
+
+  $(\Rightarrow)$ Assume
+  $a^i \equiv a^j \Pmod{m}$. Then we can
+  write
+  \[
+    a^j \equiv a^i \equiv a^j a^{i - j}
+    \pmod{m}.
+  \]
+  Since $(a, m) = 1$, we can cancel
+  $a^j$ to get
+  $1 \equiv a^{i - j} \Pmod{m}$.
+  Then by Proposition \ref{prop:order-divides},
+  $\ord_m a \mid i - j$.
+
+  $(\Leftarrow)$ Assume
+  $i \equiv j \Pmod{{\ord_m a}}$. Then
+  $\ord_m a \mid i - j$, so there exists
+  $n \in \Z$ such that $i - j = n (\ord_m a)$.
+  Thus $i = j + n (\ord_m a)$, and we have
+  $a^i \equiv a^{j + n (\ord_m a)} \equiv a^j (a^{\ord_m a})^n \equiv a^j \Pmod{m}$.
+\end{proof}
+
+\begin{example}
+  We have seen previously that $\ord_7 2 = 3$.
+  So if $i, j$ are non-negative integers,
+  then $2^i \equiv 2^j \Pmod{7}$
+  if and only if $i \equiv j \Pmod{3}$
+  by Proposition \ref{prop:order-congruence}.
+  Note that
+  \[
+    2000 \equiv 2 \pmod{3},
+  \]
+  so we can calculate
+  $2^{2000} \equiv 2^2 \equiv 4 \Pmod{7}$.
+\end{example}
+
+\section{Primitive Roots}
+
+\begin{definition}
+  Let $r, m \in \Z$ with $m > 0$ and
+  $(r, m) = 1$. Then $r$ is called a
+  \emph{primitive root modulo $m$} if
+  $\ord_m r = \varphi(m)$.
+\end{definition}
+
+\begin{remark}
+  See \emph{primitive root diffusers}
+  for an interesting application
+  (also \emph{quadratic residue diffusers}).
+\end{remark}
+
+\begin{example}
+  We have seen that
+  $3$ is a primitive root modulo $7$ and
+  $2$ is a primitive root modulo $13$.
+  On the other hand, $2$ is not a primitive
+  root modulo $7$.
+\end{example}
+
+\begin{example}
+  We prove that there are no primitive
+  roots modulo $8$. The reduced residues
+  modulo $8$ are $1, 3, 5, 7$, and
+  $\varphi(8) = 4$. But
+  $1^2 \equiv 3^2 \equiv 5^2 \equiv 7^2 \equiv 1$,
+  so none of these are primitive roots
+  modulo $8$.
+
+  In particular, not all
+  integers $m$ possess a primitive root.
+  The \emph{primitive root theorem} (later)
+  tells us that $m$ has a primitive root
+  if and only if $m = 1, 2, 4, p^k, 2p^k$,
+  where $p$ is an odd prime.
+\end{example}
+
+\begin{prop}\label{prop:primitive-root-generate}
+  Let $r$ be a primitive root modulo $m$.
+  Then
+  $\{r, r^2, r^3, \dots, r^{\varphi(m)}\}$
+  is a complete set of reduced residues
+  modulo $m$.
+\end{prop}
+
+\begin{proof}
+  Since $r$ is a primitive root modulo $m$,
+  we have $(r, m) = 1$, and so
+  $(r^n, m) = 1$ for any $n \ge 1$.
+  Also, there are $\varphi(m)$ elements
+  in the list, so it remains to show that
+  they are distinct modulo $m$.
+
+  To do this, suppose that $r^i \equiv r^j \Pmod{m}$
+  for some $1 \le i, j \le \varphi(m)$.
+  Then Proposition \ref{prop:order-congruence}
+  implies that
+  $i \equiv j \Pmod{{\varphi(m)}}$, so
+  $i = j$. Thus the $r^i$ are distinct
+  modulo $m$.
+\end{proof}
+
+\begin{remark}
+  Proposition \ref{prop:primitive-root-generate}
+  says that a primitive root (when it exists)
+  generates the reduced residues modulo
+  $m$.
+\end{remark}
+
+\begin{example}
+  Recall that $3$ is a primitive root
+  modulo $7$. We saw in Example
+  \ref{ex:order-7-3} that
+  \[
+    \{3^1, 3^2, 3^3, 3^4, 3^5, 3^6\}
+    \equiv \{3, 2, 6, 4, 5, 1\}
+    \pmod{7},
+  \]
+  in particular this is a complete set of
+  reduced residues modulo $7$.
+\end{example}
+
+\begin{example}
+  Recall that $2$ is a primitive root
+  modulo $13$. We can compute
+  \[
+    \{2^1, 2^2, 2^3, 2^4, 2^5, 2^6,
+    2^7, 2^8, 2^9, 2^{10}, 2^{11}, 2^{12}\}
+    \equiv
+    \{2, 4, 8, 3, 6, 12, 11, 9, 5, 10, 7, 1\}
+    \pmod{13},
+  \]
+  which is a complete set of reduced residues
+  modulo $13$.
+\end{example}
+
+\begin{remark}
+  If a primitive root exists, it is
+  in general not unique. We will determine
+  how many there are next lecture
+  (we will see that there are
+  $\varphi(\varphi(m))$ of them).
+\end{remark}
+
+\begin{exercise}
+  Show there are no primitive roots
+  modulo $12$.
+
+  To do this, write
+  $\Z / 12\Z \cong \Z / 3\Z \times \Z / 4\Z$,
+  then we have
+  \[(\Z / 12\Z)^\times \cong (\Z / 3\Z)^\times \times (\Z / 4\Z)^\times = \Z / 2\Z \times \Z / 2\Z\]
+  which is not cyclic.
+  Alternatively, one can just compute
+  directly
+  for $(\Z / 12\Z)^\times = \{1, 5, 7, 11\}$
+  that
+  \[
+    1^2 \equiv 5^2 \equiv 7^2 \equiv 11^2 \equiv 1 \pmod{12},
+  \]
+  so none of these can be primitive
+  roots modulo $12$.
+\end{exercise}
