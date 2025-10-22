@@ -1,0 +1,249 @@
+\chapter{Oct.~22 --- Primitive Roots, Part 2}
+
+\section{More on Primitive Roots}
+
+\begin{prop}
+  Let $a, m \in \Z$ with $m > 0$ and
+  $(a, m) = 1$. If $i$ is a positive
+  integer, then
+  \[
+    \ord_m(a^i)
+    = \frac{\ord_m a}{(\ord_m a, i)}.
+  \]
+\end{prop}
+
+\begin{proof}
+  Let $d = (\ord_m a, 1)$. Then there exist
+  $b, c \in \Z$ such that
+  $\ord_m a = db$, $i = dc$ and
+  $(b, c) = 1$. Note
+  \[
+    (a^i)^b
+    = (a^{dc})^{(\ord_m a)/d}
+    = (a^c)^{\ord_m a}
+    = (a^{\ord_m a})^c
+    = 1 \pmod{m}.
+  \]
+  By Proposition \ref{prop:order-divides},
+  this implies $\ord_m(a^i) \mid b$. Also,
+  \[
+    1 \equiv (a^i)^{\ord_m(a^i)}
+    \equiv a^{i \ord_m (a^i)} \pmod{m},
+  \]
+  so by Proposition \ref{prop:order-divides},
+  $\ord_m a \mid i \ord_m(a^i)$. Thus
+  $db \mid dc \ord_m(a^i)$, so
+  $b \mid c \ord_m(a^i)$. Since
+  $(b, c) = 1$, we must have
+  $b \mid \ord_m(a^i)$. Thus we see that
+  $\ord_m(a^i) = b = (\ord_m a) / d = (\ord_m a) / (\ord_m a, i)$.
+\end{proof}
+
+\begin{corollary}\label{cor:order-power-coprime}
+  Let $a, m \in \Z$ with $m > 0$ and
+  $(a, m) = 1$. If $i$ is a positive
+  integer, then
+  \[
+    \ord_m(a^i) = \ord_m a
+  \]
+  if and only if $(\ord_m a, i) = 1$.
+\end{corollary}
+
+\begin{corollary}\label{cor:primitive-root-count}
+  If a primitive root modulo $m$ exists,
+  then there are exactly $\varphi(\varphi(m))$
+  incongruent primitive roots modulo $m$.
+\end{corollary}
+
+\begin{proof}
+  Let $r$ be a primitive root. Then
+  the $\ord_m r = \varphi(m)$. By
+  Proposition \ref{prop:primitive-root-generate},
+  the set
+  \[
+    \{r^1, r^2, \dots, r^{\varphi(m)}\}
+  \]
+  is a reduced residue system modulo $m$.
+  If $1 \le i \le \varphi(m)$, then by
+  Corollary \ref{cor:order-power-coprime},
+  $\ord_m(r^i) = \ord_m r = \varphi(m)$
+  if and only if $(i, \varphi(m)) = 1$.
+  There are $\varphi(\varphi(m))$
+  such $i$, and each gives a distinct primitive root.
+\end{proof}
+
+\begin{example}
+  We showed previously that $3$ is a
+  primitive root modulo $7$. There are
+  exactly
+  \[\varphi(\varphi(7)) = \varphi(6) = 2\]
+  primitive roots modulo $7$. In particular,
+  we must have $\ord_m (3^i) = \varphi(7)$
+  if and only if $(i, \varphi(7)) = (1, 6) = 1$.
+  Thus $i = 1, 5$, so $3^1 = 3$ and
+  $3^5 \equiv 5 \pmod{7}$ are the
+  two primitive roots modulo $7$.
+\end{example}
+
+\begin{example}
+  Recall that
+  $2$ is a primitive root modulo $13$.
+  Thus there are $\varphi(\varphi(13)) = \varphi(2) = 4$
+  primitive roots. Find the other three
+  primitive roots as an exercise.
+\end{example}
+
+\begin{remark}
+  Note that $\varphi(\varphi(8)) = \varphi(4) = 2$,
+  but this does not imply that $8$ has
+  $2$ primitive roots. We need to know that
+  a primitive root exists first for Corollary
+  \ref{cor:primitive-root-count}
+  to apply.
+\end{remark}
+
+\section{Primitive Roots for Primes}
+
+\begin{theorem}[Lagrange]\label{thm:lagrange}
+  Let $p$ be a prime and let
+  \[
+    f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0
+  \]
+  be a polynomial with degree $n$ and
+  integer coefficients $a_0, a_1, \dots, a_n$,
+  such that $p \nmid a_n$. Then the
+  congruence
+  \[
+    f(x) \equiv 0 \pmod{p}
+  \]
+  has at most $n$ incongruent solutions.
+\end{theorem}
+
+\begin{proof}
+  We proceed by induction on $n$. Suppose
+  $n = 1$. Then $f(x) = a_1 x + a_0$
+  where $p \nmid a_1$. Then
+  \[
+    a_1 x + a_0 \equiv 0 \pmod{p},
+  \]
+  which is equivalent to
+  $a_1 x = -a_0 \Pmod{p}$. Now since
+  $p \nmid a_1$, we can multiply both
+  sides by $\overline{a}_1$ to get
+  $x = -a_0 \overline{a}_1$.
+  This proves the base case.
+
+  Suppose $k \ge 1$ and that the theorem
+  holds for polynomials of degree
+  $k$. Let $n = k + 1$, then we can write
+  \[
+    f(x) = a_{k + 1} x^{k + 1} + \cdots + a_1 x + a_0
+  \]
+  where $p \nmid a_{k + 1}$. If
+  $f(x) \equiv 0 \Pmod{p}$ has no solutions,
+  then we are done. Now suppose $x_0$ is a
+  solution. By polynomial long division,
+  there exists a polynomial $q(x)$ with
+  integer coefficients such that
+  \[
+    f(x) = (x - x_0) q(x) + r
+  \]
+  for some integer $r$, where $q(x)$
+  has degree $k$. Note that
+  \[
+    0 \equiv f(x_0) \equiv (x_0 - x_0) q(x_0) + r
+    \equiv r \pmod{p},
+  \]
+  so $r \equiv 0 \Pmod{p}$, and we have
+  $f(x) \equiv (x - x_0) q(x) \Pmod{p}$. If
+  \[
+    0 \equiv f(x_1) \equiv (x_1 - x_0) q(x)
+    \pmod{p},
+  \]
+  then $x_1 - x_0 \equiv 0 \Pmod{p}$
+  or $q(x_1) \equiv 0 \Pmod{p}$.
+  If $x_1 \not\equiv x_0 \Pmod{p}$,
+  then $q(x_1) \equiv 0 \Pmod{p}$, and
+  $q(x)$ has at most $k$ roots by the
+  induction hypothesis. Thus
+  $f(x)$ has at most $k + 1$ roots.
+\end{proof}
+
+\begin{prop}\label{prop:d-roots-mod-p}
+  Let $p$ be a prime and $d \in \Z$ with
+  $d > 0$ and $d \mid p - 1$. Then the
+  congruence
+  \[
+    x^d - 1 \equiv 0 \pmod{p}
+  \]
+  has exactly $d$ incongruent solutions
+  modulo $p$.
+\end{prop}
+
+\begin{proof}
+  Since $d \mid p - 1$, there exists
+  $e \in \Z$ such that $p - 1 = de$.
+  Note that if $p \nmid x$, then
+  \[
+    0 \equiv x^{p - 1} - 1
+    \equiv x^{de - 1}
+    \equiv (x^d - 1)(x^{d(e - 1)} + x^{d(e - 2)} + \cdots + x^d + 1)
+    \pmod{p}.
+  \]
+  Thus $x^d - 1 \equiv 0 \Pmod{p}$
+  (call this $(1)$) or
+  $x^{d(e - 1)} + x^{d(e - 2)} + \cdots + x^d + 1 \equiv 0 \Pmod{p}$
+  (call this $(2)$). By
+  Theorem \ref{thm:lagrange},
+  $(2)$ has at most $d(e - 1) = p - 1 - d$
+  solutions. Also $(1)$ has at most $d$
+  solutions. By Fermat's little theorem,
+  $x^{p - 1} - 1 \equiv \Pmod{p}$
+  has exactly $p - 1$ solutions, so
+  $x^d - 1 \equiv 0 \Pmod{p}$ has least
+  $d$ solutions. Therefore, it has
+  exactly $d$ solutions.
+\end{proof}
+
+\begin{remark}
+  Proposition \ref{prop:d-roots-mod-p}
+  is a generalization of the fact that
+  $x^2 \equiv 1 \Pmod{p}$ has exactly
+  $2$ solutions for odd primes $p$.
+\end{remark}
+
+\begin{example}
+  Prove that $3$ is a primitive root
+  modulo $43$, and then use this to
+  calculate all elements of order $14$.
+  To show that $3$ is a primitive root,
+  we need to check $3^i$ for
+  $i \mid \varphi(43) = 42$, so for
+  \[
+    i = 1, 2, 3, 6, 7, 14, 21, 42.
+  \]
+  We can compute that
+  \begin{align*}
+    3^1 &\equiv 3 \pmod{43},\\
+    3^2 &\equiv 9 \pmod{43},\\
+    3^3 &\equiv 27 \pmod{43},\\
+    3^6 &\equiv 3^4 \cdot 3^2 \equiv (-5) \cdot 9 \equiv -2 \pmod{43},\\
+    3^7 &\equiv -6 \pmod{43},\\
+    3^{14} &\equiv 36 \equiv -7 \pmod{43},\\
+    3^{21} &\equiv 42 \equiv -1 \pmod{43},\\
+    3^{42} &\equiv 1 \pmod{43}.
+  \end{align*}
+  This confirms that $3$ is a primitive root modulo
+  $43$. To find elements of order $14$, we
+  want $i$ such that
+  \[
+    14 = \ord_{43}(3^i)
+    = \frac{\ord_{43}(3)}{(\ord_{43}(3), i)}
+    = \frac{42}{(42, i)},
+  \]
+  so we want $(42, i) = 42 / 14 = 3$.
+  This works for
+  $i = 3, 9, 15, 27, 33, 39$. Thus the
+  elements of order $14$ are represented
+  by $3^3, 3^9, 3^{15}, 3^{27}, 3^{33}, 3^{39}$ modulo $43$.
+\end{example}
