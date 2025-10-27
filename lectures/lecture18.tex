@@ -1,0 +1,236 @@
+\chapter{Oct.~27 --- Primitive Roots, Part 3}
+
+\section{Primitive Roots for Primes, Continued}
+
+\begin{theorem}[Legendre]\label{thm:legendre}
+  Let $p$ be a prime and let $d \in \Z$ 
+  with $d > 0$ and $d \mid p - 1$. Then
+  there are exactly $\varphi(d)$ incongruent
+  integers having order $d$ modulo $p$.
+\end{theorem}
+
+\begin{proof}
+  Given $d \mid p - 1$, let $f(d)$ be the
+  number of integers among
+  $1, 2, \dots, p - 1$ that have order $d$ 
+  modulo $p$. We wish to show that
+  $f(d) = \varphi(d)$. We will first show
+  that if $f(d) \ne 0$, then $f(d) = \varphi(d)$.
+  Then we will show that $f(d) \ne 0$ for
+  all $d \mid p - 1$.
+
+  Suppose first that $f(d) > 0$. Then
+  there exists an integer $a$ with order
+  $d$. Note that the integers
+  $a^1, a^2, \dots, a^d$ are incongruent
+  modulo $p$. To see this, suppose
+  otherwise that $a^i \equiv a^j \Pmod{p}$
+  for some $i > j$. Then
+  $a^{i - j} \equiv 1 \Pmod{p}$
+  with $i - j < d$, contradicting
+  $\ord_p a = d$. Note also that
+  \[
+    (a^k)^d \equiv (a^d)^k \equiv 1 \pmod{p},
+  \]
+  so each is a solution to
+  $x^d - 1 \equiv 0 \Pmod{p}$. Since this
+  congruence has exactly $d$ solutions,
+  $a^1, \dots, a^d$ must be all of them.
+  So any integer of order $d$ modulo $p$ 
+  must be congruent to one of these.
+  In particular, any element
+  of order $d$ must be a power of $a$.
+  Recall that
+  \[
+    \ord_p (a^i)
+    = \frac{\ord_p a}{(\ord_p a, i)},
+  \]
+  so $\ord_p (a^i) = d$ if and only if
+  $\ord_p(a) / (\ord_p a, i) = d$,
+  which holds only when $(d, i) = 1$
+  since $\ord_p(a) = d$. Thus there are
+  exactly $\varphi(d)$ values of
+  $i$, so $f(d) = \varphi(d)$.
+
+  We now show that $f(d)$ cannot be $0$.
+  Note that any integer $b$ with
+  $1 \le b \le p - 1$ must have order
+  dividing $p - 1$, so any such $b$ is
+  counted by exactly one $f(d)$. Thus
+  \[
+    \sum_{d \mid p - 1} f(d)
+    = p - 1,
+  \]
+  so we have $\sum_{d \mid p - 1} f(d) = p - 1 = \sum_{d \mid p - 1} \varphi(d)$.
+  Rearranging, we get
+  \[
+    \sum_{d \mid p - 1} (\varphi(d) - f(d)) = 0.
+  \]
+  If $f(d) \ne 0$, then $f(d) = \varphi(d)$,
+  so the corresponding summand is $0$.
+  Then
+  \[
+    0 = \sum_{\substack{d \mid p - 1 \\ f(d) = 0}} (\varphi(d) - f(d))
+    = \sum_{\substack{d \mid p - 1 \\ f(d) = 0}} \varphi(d),
+  \]
+  which is a sum of positive integers, so
+  this can only happen if
+  $f(d) \ne 0$ for all $d \mid p - 1$.
+\end{proof}
+
+\begin{corollary}
+  Let $p$ be a prime. Then there are
+  exactly $\varphi(p - 1)$ primitive
+  roots modulo $p$.
+\end{corollary}
+
+\begin{remark}
+  Note that Theorem \ref{thm:legendre}
+  gives no way to construct a primitive
+  root.
+\end{remark}
+
+\begin{example}
+  Let $p = 7$. Theorem \ref{thm:legendre}
+  implies that there exist residues
+  of orders $1, 2, 3, 6$ since
+  $\varphi(7) = 6$. Further, we can
+  compute the following table:
+  \begin{center}
+    \begin{tabular}{c|c|c}
+      order & \# residues & residues \\
+      \hline
+      1 & $\varphi(1) = 1$ & $1$\\
+      2 & $\varphi(2) = 1$ & $6$\\
+      3 & $\varphi(3) = 2$ & $2, 4$ \\
+      6 & $\varphi(6) = 2$ & $3, 5$
+    \end{tabular}
+  \end{center}
+\end{example}
+
+\begin{exercise}
+  Construct the analogous table for $p = 13$.
+  The solution is:
+  \begin{center}
+    \begin{tabular}{c|c|c}
+      order & \# residues & residues \\
+      \hline
+      1 & $\varphi(1) = 1$ & $1$\\
+      2 & $\varphi(2) = 1$ & $12$\\
+      3 & $\varphi(3) = 2$ & $3, 9$ \\
+      4 & $\varphi(4) = 2$ & $8, 5$ \\
+      6 & $\varphi(6) = 2$ & $4, 10$ \\
+      12 & $\varphi(12) = 4$ & $2, 6, 11, 7$
+    \end{tabular}
+  \end{center}
+\end{exercise}
+
+\begin{example}
+  Find all incongruent integers having
+  orders $6$ and $7$ modulo $19$.
+  Immediately we know that there are
+  $0$ integers of order $7$ modulo
+  $19$ since $7 \nmid \varphi(19) = 18$.
+  To find the elements of order $6$,
+  we would like to have a primitive root.
+  We check that $2$ is a primitive
+  root:
+  \[
+    2^1 = 2, \quad
+    2^2 = 4, \quad 2^3 = 8, \quad
+    2^6 = 7, \quad 2^9
+    = -1, \quad 2^{18} = 1.
+  \]
+  Now to find the integers of order $6$,
+  we solve the equation
+  \[
+    6 = \ord_{19}(2^a)
+    = \frac{\ord_{19} 2}{(\ord_{19} 2, a)}
+    = \frac{18}{(18, a)},
+  \]
+  so $(18, a) = 18 / 6 = 3$.
+  Thus $a = 3, 15$,
+  which corresponds to
+  $2^3 = 8$ and $2^{15} = (2^7)^2 \cdot 2 = 3$ modulo $19$.
+\end{example}
+
+\begin{remark}
+  The frequency with which $2$ appears
+  as a primitive root motivates the
+  following conjecture:
+  \begin{quote}
+    \vspace{-2em}
+    \begin{conjecture}
+      There are infinitely many primes $p$
+      for which $2$ is a primitive root
+      modulo $p$.
+    \end{conjecture}
+  \end{quote}
+  This conjecture is still open.
+  A generalization of the above is
+  the following:
+  \begin{quote}
+    \vspace{-2em}
+    \begin{conjecture}[Artin]
+      If $r$ is any non-square integer
+      other than $-1$, then there are
+      infinitely many primes $p$ for which
+      $r$ is a primitive root modulo $p$.
+    \end{conjecture}
+  \end{quote}
+  In this direction, Heath-Brown proved in
+  1986 that there are at most two integers
+  $r$ for which the conjecture is false.
+\end{remark}
+
+\section{The Primitive Root Theorem}
+
+\begin{remark}
+  We will prove this over the course
+  of the next few lectures. The following
+  two propositions limit the cases we need
+  to consider.
+\end{remark}
+
+\begin{prop}
+  There are no primitive roots modulo
+  $2^n$ where $n \in \Z$, $n \ge 3$.
+\end{prop}
+
+\begin{proof}
+  Note that any primitive root modulo
+  $2^n$ must be odd and have order
+  \[
+    \varphi(2^n)
+    = 2^n - 2^{n - 1} = 2^{n - 1}.
+  \]
+  Let $a$ be an odd integer. To prove that
+  there are no primitive roots, it suffices
+  to show that
+  \[
+    a^{2^{n - 2}} \equiv 1 \pmod{2^n}.
+  \]
+  We prove this by induction on $n$.
+  When $n = 3$, one can check that
+  $1^2 = 3^2 = 5^2 = 7^2 \equiv 1 \Pmod{8}$,
+  so the desired condition is satisfied.
+  Now suppose $a^{2^{n - 2}} \equiv 1 \Pmod{2^n}$
+  for some $n \ge 3$. Then
+  \[
+    a^{2^{n - 2}}
+    = b 2^n + 1, \quad b \in \Z.
+  \]
+  Note that
+  $(x^{2^{n - 2}})^2 = x^{2^{n - 1}}$,
+  so squaring both sides yields
+  \[
+    a^{2^{n - 1}}
+    = (a^{2^{n - 2}})^2
+    = (b 2^n + 1)^2
+    = b^2 2^{2n} + 2^{n + 1} b + 1
+    \equiv 1 \pmod{2^{n + 1}},
+  \]
+  which proves thee inductive step.
+  So there are no primitive roots modulo
+  $2^n$ for $n \ge 3$.
+\end{proof}
